@@ -1,7 +1,10 @@
 
-## Tools Setup
+## Development Tools Setup
 
-This section lists out all the tools and framework dependencies required to develop, debug and deploy our project.
+This section lists out all the tools and framework dependencies required to develop, debug and deploy our project. There are other alternatives as well (for example, instead of using PyCharm, we can opt for any other IDE like Visual Studio Code as well), feel free to use any of the available alternatives.
+
+<br />
+
 | Tool | Installation Steps | Version |
 |--|--|--|
 | Git | `brew install git` | 2.45.2 |
