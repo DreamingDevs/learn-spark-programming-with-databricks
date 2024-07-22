@@ -1,4 +1,11 @@
 
+## Tools Setup
+
+This section lists out all the tools and framework dependencies required to develop, debug and deploy our project.
+| Tool | Installation Steps | Version |
+|--|--|--|
+| Git | `brew install git` | 2.45.2 |
+
 ## Terminal Setup
 
 This section describes my terminal setup details. Except `brew` package manager, this terminal setup is completely optional. 
