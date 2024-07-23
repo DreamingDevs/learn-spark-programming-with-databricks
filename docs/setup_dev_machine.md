@@ -5,11 +5,11 @@ This section lists out all the tools and framework dependencies required to deve
 
 <br />
 
-| Tool              | Installation Steps                                                                                                                   | Version               |
-|-------------------|--------------------------------------------------------------------------------------------------------------------------------------|-----------------------|
-| Git               | `brew install git`                                                                                                                   | 2.45.2                |
-| Python            | `brew install python`<br> (Add `export PATH="$(brew --prefix)/opt/python@3/libexec/bin:$PATH"` to `~/.zshrc` or to the bash profile) | 3.12.4                |
-| PyCharm Community | `brew install pycharm-ce`                                                                                                            | 2024.1.4,241.18034.82 |
+| Tool              | Installation Steps                                                                                                             | Version               |
+|-------------------|--------------------------------------------------------------------------------------------------------------------------------|-----------------------|
+| Git               | `brew install git`                                                                                                             | 2.45.2                |
+| Python            | `brew install python` <br> <br/> Set PATH `echo 'export PATH="/opt/homebrew/Cellar/python@3.12/3.12.4/bin:$PATH"' >> ~/.zshrc` | 3.12.4                |
+| PyCharm Community | `brew install pycharm-ce`                                                                                                      | 2024.1.4,241.18034.82 |
 
 
 ## Terminal Setup
@@ -43,3 +43,11 @@ At the end of above exercise, iTerm2 terminal should look like as below.
 ![iTerm2](../images/iTerm2.png "iTerm2")
 
 <br />
+
+## Spark Setup
+
+We need to install Java and Spark to develop Spark application in local environment.
+
+| Task | Installation Steps                                                                                                                                                                                                                                                                                                                                                                                                                                                   | Version                    |
+|------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|----------------------------|
+| Java | `brew install java11` <br/><br/> Add the symlink `sudo ln -sfn /opt/homebrew/opt/openjdk@11/libexec/openjdk.jdk /Library/Java/JavaVirtualMachines/openjdk-11.jdk` <br/><br/> Set PATH  `echo 'export PATH="/opt/homebrew/Cellar/openjdk@11/11.0.24/bin:$PATH"' >> ~/.zshrc` <br/> <br/> Set JAVA_HOME  `echo 'export JAVA_HOME="/opt/homebrew/Cellar/openjdk@11/11.0.24/bin"' >> ~/.zshrc` <br/> <br/> Execute `java --version` to ensure installation is successful | openjdk 11.0.24 2024-07-16 |
