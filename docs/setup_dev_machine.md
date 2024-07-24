@@ -18,7 +18,7 @@ We need to install Java Python and Spark to develop Spark application in local e
 | Python | `brew install python` <br> <br/> Set PATH `echo 'export PATH="/opt/homebrew/Cellar/python@3.12/3.12.4/bin:$PATH"' >> ~/.zshrc` <br/> <br/> Set PYSPARK_PYTHON `echo 'export PYSPARK_PYTHON=python3' >> ~/.zshrc` <br/> <br/> Execute `python3 --version` to ensure installation is successful                                                                                                                                                                                                                                        | 3.12.4                     |
 | Spark  | Download Spark (currently spark-3.5.1-bin-hadoop3.tgz) from [website](https://spark.apache.org/downloads.html) <br/> <br/> Unzip and copy the contents to `/opt/homebrew/Cellar/spark-3.5.1-bin-hadoop3` <br/><br/> Set PATH  `echo 'export PATH="/opt/homebrew/Cellar/spark-3.5.1-bin-hadoop3/bin:$PATH"' >> ~/.zshrc` <br/> <br/> Set SPARK_HOME  `echo 'export SPARK_HOME="/opt/homebrew/Cellar/spark-3.5.1-bin-hadoop3"' >> ~/.zshrc` <br/> <br/> Execute `pyspark` to see spark interactive shell and there should be no errors | openjdk 11.0.24 2024-07-16 |
 
-> NOTE: On Windows systems, apart from above installed frameworks, we also need to install [Hadoop winutils](https://github.com/cdarlint/winutils) and set `HADOPP_HOME` and `PATH` variables accordingly. 
+> NOTE: On Windows systems, apart from above installed frameworks, we also need to install [Hadoop winutils](https://github.com/cdarlint/winutils) and set `HADOOP_HOME` and `PATH` variables accordingly. 
 
 ## Terminal Setup
 
