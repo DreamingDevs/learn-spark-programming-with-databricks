@@ -3,10 +3,13 @@
 
 We will install Git and Visual Studio Code for our development activities. There are other alternatives as well (for example, instead of using Visual Studio Code, we can opt for any other IDE like PyCharm as well), feel free to use any of the available alternatives. Below installation steps are for macOS.
 
-| Tool               | Installation Steps                | Version |
-|--------------------|-----------------------------------|---------|
-| Git                | `brew install git`                | 2.45.2  |
-| Visual Studio Code | `brew install visual-studio-code` | 1.91.1  |
+| Tool                    | Installation Steps                | Version    |
+|-------------------------|-----------------------------------|------------|
+| Git                     | `brew install git`                | 2.45.2     |
+| Visual Studio Code      | `brew install visual-studio-code` | 1.91.1     |
+| Python extension        | Install from VS Code extensions   | v2024.10.0 |
+| Jupyter extension       | Install from VS Code extensions   | v2024.6.0  |
+| vscode-icons (optional) | Install form VS code extensions   | v12.8.0    |
 
 ## Spark Setup
 
