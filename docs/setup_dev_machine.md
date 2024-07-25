@@ -12,6 +12,8 @@ We will install Git and PyCharm Community for our development activities. There 
 
 We need to install Java Python and Spark to develop Spark application in local environment.
 
+> NOTE: The paths specified in the below commands will vary based on the installation location. Hence, please verify the paths where Brew installs the software.
+
 | Task   | Installation Steps                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   | Version                    |
 |--------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|----------------------------|
 | Java   | `brew install java11` <br/><br/> Add the symlink `sudo ln -sfn /opt/homebrew/opt/openjdk@11/libexec/openjdk.jdk /Library/Java/JavaVirtualMachines/openjdk-11.jdk` <br/><br/> Set PATH  `echo 'export PATH="/opt/homebrew/Cellar/openjdk@11/11.0.24/bin:$PATH"' >> ~/.zshrc` <br/> <br/> Set JAVA_HOME  `echo 'export JAVA_HOME="/opt/homebrew/Cellar/openjdk@11/11.0.24"' >> ~/.zshrc` <br/> <br/> Execute `java --version` to ensure installation is successful                                                                     | openjdk 11.0.24 2024-07-16 |
@@ -19,6 +21,18 @@ We need to install Java Python and Spark to develop Spark application in local e
 | Spark  | Download Spark (currently spark-3.5.1-bin-hadoop3.tgz) from [website](https://spark.apache.org/downloads.html) <br/> <br/> Unzip and copy the contents to `/opt/homebrew/Cellar/spark-3.5.1-bin-hadoop3` <br/><br/> Set PATH  `echo 'export PATH="/opt/homebrew/Cellar/spark-3.5.1-bin-hadoop3/bin:$PATH"' >> ~/.zshrc` <br/> <br/> Set SPARK_HOME  `echo 'export SPARK_HOME="/opt/homebrew/Cellar/spark-3.5.1-bin-hadoop3"' >> ~/.zshrc` <br/> <br/> Execute `pyspark` to see spark interactive shell and there should be no errors | openjdk 11.0.24 2024-07-16 |
 
 > NOTE: On Windows systems, apart from above installed frameworks, we also need to install [Hadoop winutils](https://github.com/cdarlint/winutils) and set `HADOOP_HOME` and `PATH` variables accordingly. 
+
+## Azure and Databricks Setup
+
+We primarily consider two options to work with Databricks.
+1. Azure Subscription-based Databricks service
+2. Databricks Community Edition (independent of cloud provider)
+
+In this repository, we proceed with option # 1, as the other option got limited to only certain features.
+
+To begin with, we need to create an Azure Subscription ([Get Started for free]([Link](https://azure.microsoft.com/en-in/free))). The free subscription provides USD 200 credit to use with in 30 days, which we can work with with 55 Azure services. Once the 30-day window is lapsed, the account gets converted to a pay-as-you-go subscription, which will enable us to pay only if we use more than the initial provided credits.
+
+To get access to all the features of Databricks, we need to create a Databricks Premium service, which is only available in an Azure Pay-as-you-go subscription. So I highly recommend converting the free subscription to a pay-as-you-go model by using the `upgrade` option, which is available under the Subscription section of the Azure portal.
 
 ## Terminal Setup
 
