@@ -25,6 +25,27 @@ We need to install Java Python and Spark to develop Spark application in local e
 
 > NOTE: On Windows systems, apart from above installed frameworks, we also need to install [Hadoop winutils](https://github.com/cdarlint/winutils) and set `HADOOP_HOME` and `PATH` variables accordingly. 
 
+## Setup Python Virtual env.
+
+A Python virtual environment is a tool that helps to segregate the dependencies of different projects by creating isolated Python virtual environments for them.
+
+> NOTE: Clone this repository (https://github.com/DreamingDevs/learn-spark-programming-with-databricks) to your local machine.
+
+Open terminal and navigate into the root directory (learn-spark-programming-with-databricks) of the repository.
+
+```
+cd learn-spark-programming-with-databricks
+python3 -m venv .venv
+source .venv/bin/activate
+```
+
+At this point, we can start working on our code and test it in VS Code.
+
+At the end of development, we can deactivate the virtual env., by executing below command.
+```
+deactivate
+```
+
 ## Azure and Databricks Setup
 
 We primarily consider two options to work with Databricks.
