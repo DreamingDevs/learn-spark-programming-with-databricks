@@ -54,7 +54,7 @@ We primarily consider two options to work with Databricks.
 
 In this repository, we proceed with option # 1, as the other option got limited to only certain features.
 
-To begin with, we need to create an Azure Subscription ([Get Started for free]([Link](https://azure.microsoft.com/en-in/free))). The free subscription provides USD 200 credit to use with in 30 days, which we can work with with 55 Azure services. Once the 30-day window is lapsed, the account gets converted to a pay-as-you-go subscription, which will enable us to pay only if we use more than the initial provided credits.
+To begin with, we need to create an Azure Subscription ([Get Started for free](https://azure.microsoft.com/en-in/free)). The free subscription provides USD 200 credit to use with in 30 days, which we can work with with 55 Azure services. Once the 30-day window is lapsed, the account gets converted to a pay-as-you-go subscription, which will enable us to pay only if we use more than the initial provided credits.
 
 To get access to all the features of Databricks, we need to create a Databricks Premium service, which is only available in an Azure Pay-as-you-go subscription. So I highly recommend converting the free subscription to a pay-as-you-go model by using the `upgrade` option, which is available under the Subscription section of the Azure portal.
 
