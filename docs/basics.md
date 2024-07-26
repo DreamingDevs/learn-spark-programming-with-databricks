@@ -20,3 +20,17 @@ Following are key aspects of different layers in the architecture:
 3. The Spark engine is the heavy lifter that understands the Spark application request, generates DAG, breaks the flow into smaller units, schedules the units, supplies the required data to the units, monitors and provides fault tolerance to the smaller units, and finally orchestrates the results.
 4. Cluster manager provides the abstraction of master and worker nodes of the cluster from the Spark application. Typically, this layer would be substituted by YARN, Mesos, and Kubernetes.
 5. Compute and storage resources power all the layers with required processing and storage space. This layer is provisioned by cloud infrastructure providers like Azure, AWS, and GCP.
+
+## What is Databricks
+
+Databricks is a Spark-based managed cloud data platform that provides comprehensive solutions related to data engineering, data science, data analytics, and machine learning. Following are key features of Databricks when compared with Spark.
+
+1. Databricks provides managed Spark environments, which simplify the configuration, setup, and management of Spark clusters.
+2. It provides notebooks and workspaces for the team's collaboration, making it easy to develop and deploy data processing and analysis tasks.
+3. It provides data governance through the Unity Catalog.
+4. Databricks offers lakehouse capabilities through Delta Lake.
+5. There are administrative controls and automations available in Databricks for managing large-scale projects.
+6. Built-in security controls are available to provide role-based access controls.
+7. Data ingestion and integration is made easy through Delta Live tables and Autoloader.
+8. Photon acceleration is available to deliver optimized performance in SQL analytical workloads.
+9. Different features available for Data science and ML flows
