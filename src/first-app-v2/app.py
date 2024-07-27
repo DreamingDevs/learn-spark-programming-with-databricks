@@ -1,6 +1,7 @@
 from pyspark.sql import *
 from pyspark.sql.types import *
 from pyspark.sql.functions import *
+from lib.config import *
 
 if __name__ == "__main__":
     source_file = sys.argv[1]
@@ -10,8 +11,7 @@ if __name__ == "__main__":
     # Create a spark session
     spark = SparkSession \
         .builder \
-        .appName("HelloWorld") \
-        .master("local[2]") \
+        .config(conf=get_spark_conf()) \
         .getOrCreate()
 
     # Define Schema
