@@ -59,6 +59,47 @@ To begin with, we need to create an Azure Subscription ([Get Started for free](h
 
 To get access to all the features of Databricks, we need to create a Databricks Premium service, which is only available in an Azure Pay-as-you-go subscription. So I highly recommend converting the free subscription to a pay-as-you-go model by using the `upgrade` option, which is available under the Subscription section of the Azure portal.
 
+## Start a Spark Cluster
+
+Let's start a standalone Spark cluster in our local environment. We installed Spark at `/opt/homebrew/Cellar/spark-3.5.1-bin-hadoop3`. The scripts to start and stop the master and worker nodes are available under `sbin` folder of the spark-3.5.1-bin-hadoop3 directory.
+
+```
+cd /opt/homebrew/Cellar/spark-3.5.1-bin-hadoop3
+cd sbin
+./start-master.sh
+```
+
+> NOTE: We can also configure both master and worker for cores, memory, ports, host etc. However, for simplicity, we are going to configure both master and worker with defaults.
+
+![Spark Master](./../images/spark-master.png)
+
+Navigate to the `logs` folder as shown in the above image to find the WebUI URL for the master node. In my case, it is `http://192.168.0.184:8080/`
+
+![Spark Master UI](./../images/spark-master-ui.png)
+
+Copy the URL that is displayed on the UI:`spark://Ramis-MacBook-Pro.local:7077`
+
+```
+cd /opt/homebrew/Cellar/spark-3.5.1-bin-hadoop3
+cd sbin
+./start-worker.sh spark://Ramis-MacBook-Pro.local:7077
+```
+
+![Spark Worker](./../images/spark-worker.png)
+
+Navigate to the `logs` folder as shown in the above image to find the WebUI URL for the worker node. In my case, it is `http://192.168.0.184:8081/`
+
+![Spark Worker UI](./../images/spark-worker-ui.png)
+
+Once our work is completed, we can stop both master and worker.
+
+```
+cd /opt/homebrew/Cellar/spark-3.5.1-bin-hadoop3
+cd sbin
+./stop-master.sh
+./stop-worker.sh
+```
+
 ## Terminal Setup
 
 This section describes my terminal setup details. Except `brew` package manager, this terminal setup is completely optional. 

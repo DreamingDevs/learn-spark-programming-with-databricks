@@ -14,9 +14,10 @@ In this repository, I am going to share my learning journey of Apache Spark fram
 | 8     | Create and test the Spark application [Local env.]            | 07-26-2024 | ![Completed](./images/icons/completed.png)    | [Link](./docs/implementation.md#first-application)             |
 | 9     | Handle Spark Configuration [Local env.]                       | 07-27-2024 | ![Completed](./images/icons/completed.png)    | [Link](./docs/implementation.md#handling-spark-configuration)  |
 | 10    | Logging in Spark application [Local env.]                     | 07-27-2024 | ![Completed](./images/icons/completed.png)    | [Link](./docs/implementation.md#creating-a-custom-logger)      |
-| 11    | Submit the Spark application to cluster [Local env.]          | 07-27-2024 | ![In-Progress](./images/icons/inprogress.png) |                                                                |
-| 12    | Unit testing of Spark application [Local env.]                | 07-28-2024 | ![Pending](./images/icons/pending.png)        |                                                                |
-| 13    | Read & Write formats in Spark application                     | 07-28-2024 | ![Pending](./images/icons/pending.png)        |                                                                |
-| 14    | Spark Dataframe API transformation                            | 07-28-2024 | ![Pending](./images/icons/pending.png)        |                                                                |
-| 15    | Deploy and test the Spark application [Databricks env.]       | 07-29-2024 | ![Pending](./images/icons/pending.png)        |                                                                |
-| 16    | [Optional] Install iTerm2 and ZSH with PowerLevel10k theme    | 07-22-2024 | ![Completed](./images/icons/completed.png)    | [Link](./docs/setup_dev_machine.md#terminal-setup)             |
+| 11    | Start a Spark cluster [Local env.]                            | 07-28-2024 | ![Completed](./images/icons/completed.png)    | [Link](./docs/setup_dev_machine.md#start-a-spark-cluster)      |
+| 12    | Submit the Spark application to cluster [Local env.]          | 07-28-2024 | ![In-Progress](./images/icons/inprogress.png) |                                                                |
+| 13    | Unit testing of Spark application [Local env.]                | 07-28-2024 | ![Pending](./images/icons/pending.png)        |                                                                |
+| 14    | Read & Write formats in Spark application                     | 07-28-2024 | ![Pending](./images/icons/pending.png)        |                                                                |
+| 15    | Spark Dataframe API transformation                            | 07-28-2024 | ![Pending](./images/icons/pending.png)        |                                                                |
+| 16    | Deploy and test the Spark application [Databricks env.]       | 07-29-2024 | ![Pending](./images/icons/pending.png)        |                                                                |
+| 17    | [Optional] Install iTerm2 and ZSH with PowerLevel10k theme    | 07-22-2024 | ![Completed](./images/icons/completed.png)    | [Link](./docs/setup_dev_machine.md#terminal-setup)             |
