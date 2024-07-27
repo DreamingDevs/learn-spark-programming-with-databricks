@@ -3,13 +3,14 @@
 
 We will install Git and Visual Studio Code for our development activities. There are other alternatives as well (for example, instead of using Visual Studio Code, we can opt for any other IDE like PyCharm as well), feel free to use any of the available alternatives. Below installation steps are for macOS.
 
-| Tool                    | Installation Steps                | Version    |
-|-------------------------|-----------------------------------|------------|
-| Git                     | `brew install git`                | 2.45.2     |
-| Visual Studio Code      | `brew install visual-studio-code` | 1.91.1     |
-| Python extension        | Install from VS Code extensions   | v2024.10.0 |
-| Jupyter extension       | Install from VS Code extensions   | v2024.6.0  |
-| vscode-icons (optional) | Install form VS code extensions   | v12.8.0    |
+| Tool                                                                   | Installation Steps                                                                                                                                                                                          | Version    |
+|------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|------------|
+| Git                                                                    | `brew install git`                                                                                                                                                                                          | 2.45.2     |
+| Visual Studio Code                                                     | `brew install visual-studio-code`                                                                                                                                                                           | 1.91.1     |
+| Python extension                                                       | Install from VS Code extensions                                                                                                                                                                             | v2024.10.0 |
+| Jupyter extension                                                      | Install from VS Code extensions                                                                                                                                                                             | v2024.6.0  |
+| Configure Python Language Server <br/> to Jedi for better Intellisense | VS Code <br/> &#8594; Command Palette (`cmd + shift + p`) <br/> &#8594; Preferences: Open User Settings (JSON) <br/> &#8594; Enter `"python.languageServer": "Jedi"` <br/> &#8594; Save and restart VS Code | N/A        |
+| vscode-icons (optional)                                                | Install form VS code extensions                                                                                                                                                                             | v12.8.0    |
 
 ## Spark Setup
 
@@ -54,7 +55,7 @@ We primarily consider two options to work with Databricks.
 
 In this repository, we proceed with option # 1, as the other option got limited to only certain features.
 
-To begin with, we need to create an Azure Subscription ([Get Started for free](https://azure.microsoft.com/en-in/free)). The free subscription provides USD 200 credit to use with in 30 days, which we can work with with 55 Azure services. Once the 30-day window is lapsed, the account gets converted to a pay-as-you-go subscription, which will enable us to pay only if we use more than the initial provided credits.
+To begin with, we need to create an Azure Subscription ([Get Started for free](https://azure.microsoft.com/en-in/free)). The free subscription provides USD 200 credit to use with in 30 days, which we can work with 55 Azure services. Once the 30-day window is lapsed, the account gets converted to a pay-as-you-go subscription, which will enable us to pay only if we use more than the initial provided credits.
 
 To get access to all the features of Databricks, we need to create a Databricks Premium service, which is only available in an Azure Pay-as-you-go subscription. So I highly recommend converting the free subscription to a pay-as-you-go model by using the `upgrade` option, which is available under the Subscription section of the Azure portal.
 
