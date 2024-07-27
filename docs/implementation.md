@@ -15,9 +15,13 @@ Details of the code:
 
 ```
 cd learn-spark-programming-with-databricks
-pip install -r src/requirements.txt
-python3 src/first-app-v1/app.py
+cd src
+pip install -r requirements.txt
+cd first-app-v1
+python3 app.py ../../dataset/movies.json ../../dataset/output
 ```
 
 ![First Application](../images/first-app-v1.png)
+
+
 

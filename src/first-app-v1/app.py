@@ -3,6 +3,10 @@ from pyspark.sql.types import *
 from pyspark.sql.functions import *
 
 if __name__ == "__main__":
+    source_file = sys.argv[1]
+    output_files_dir = sys.argv[2]
+    print(f"source_file: {source_file}, output_files_dir: {output_files_dir}")
+    
     # Create a spark session
     spark = SparkSession \
         .builder \
@@ -24,7 +28,7 @@ if __name__ == "__main__":
         .read \
         .format("json") \
         .schema(schema) \
-        .load("../dataset/movies.json")
+        .load(source_file)
 
     movies_df.show(10, truncate=False)
 
@@ -32,5 +36,5 @@ if __name__ == "__main__":
     movies_df.write \
         .format("parquet") \
         .mode("overwrite") \
-        .option("path", "../dataset/output") \
+        .option("path", output_files_dir) \
         .save()
