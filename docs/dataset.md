@@ -33,7 +33,7 @@ rating (1 to 5 stars)
 rating_date
 ```
 
-ChatGTP graciously gave me the Python code which after minor modifications by me can be found at [create_dataset.py](./../code/create_dataset.py). `Faker` and `Pandas` are the dependencies, which are abstracted to [requirements.txt](./../code/requirements.txt). Execute the code as shown below in the terminal.
+ChatGTP graciously gave me the Python code which after minor modifications by me can be found at [create_dataset.py](./../src/create_dataset.py). `Faker` and `Pandas` are the dependencies, which are abstracted to [requirements.txt](./../src/requirements.txt). Execute the code as shown below in the terminal.
 
 > NOTE: Make sure Python virtual env. is active.
 
