@@ -39,7 +39,7 @@ ChatGTP graciously gave me the Python code which after minor modifications by me
 
 ```
 cd cd learn-spark-programming-with-databricks
-cd code
+cd src
 pip install -r requirements.txt
 python3 create_dataset.py
 ```
