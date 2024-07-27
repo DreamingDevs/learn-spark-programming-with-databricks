@@ -12,11 +12,11 @@ In this repository, I am going to share my learning journey of Apache Spark fram
 | 6     | Setup the Python virtual env. [Local env.]                    | 07-25-2024 | ![Completed](./images/icons/completed.png) | [Link](./docs/setup_dev_machine.md#setup-python-virtual-env)   |
 | 7     | Creating a sample dataset                                     | 07-26-2024 | ![Completed](./images/icons/completed.png) | [Link](./docs/dataset.md#create-a-sample-dataset)              |
 | 8     | Create and test the Spark application [Local env.]            | 07-26-2024 | ![Completed](./images/icons/completed.png) | [Link](./docs/implementation.md#first-application)             |
-| 9     | Handle Spark Configuration [Local env.]                       | 07-26-2024 | ![Pending](./images/icons/pending.png)     |                                                                |
+| 9     | Handle Spark Configuration [Local env.]                       | 07-27-2024 | ![Completed](./images/icons/completed.png) |                                                                |
 | 10    | Logging in Spark application [Local env.]                     | 07-27-2024 | ![Pending](./images/icons/pending.png)     |                                                                |
-| 11    | Submit the Spark application to cluster [Local env.]          | 07-26-2024 | ![Pending](./images/icons/pending.png)     |                                                                |
-| 12    | Unit testing of Spark application [Local env.]                | 07-27-2024 | ![Pending](./images/icons/pending.png)     |                                                                |
-| 13    | Read & Write formats in Spark application                     | 07-27-2024 | ![Pending](./images/icons/pending.png)     |                                                                |
-| 14    | Spark Dataframe API transformation                            | 07-26-2024 | ![Pending](./images/icons/pending.png)     |                                                                |
-| 15    | Deploy and test the Spark application [Databricks env.]       | 07-26-2024 | ![Pending](./images/icons/pending.png)     |                                                                |
+| 11    | Submit the Spark application to cluster [Local env.]          | 07-27-2024 | ![Pending](./images/icons/pending.png)     |                                                                |
+| 12    | Unit testing of Spark application [Local env.]                | 07-28-2024 | ![Pending](./images/icons/pending.png)     |                                                                |
+| 13    | Read & Write formats in Spark application                     | 07-28-2024 | ![Pending](./images/icons/pending.png)     |                                                                |
+| 14    | Spark Dataframe API transformation                            | 07-28-2024 | ![Pending](./images/icons/pending.png)     |                                                                |
+| 15    | Deploy and test the Spark application [Databricks env.]       | 07-29-2024 | ![Pending](./images/icons/pending.png)     |                                                                |
 | 16    | [Optional] Install iTerm2 and ZSH with PowerLevel10k theme    | 07-22-2024 | ![Completed](./images/icons/completed.png) | [Link](./docs/setup_dev_machine.md#terminal-setup)             |

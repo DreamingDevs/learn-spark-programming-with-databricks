@@ -39,8 +39,9 @@ ChatGTP graciously gave me the Python code which after minor modifications by me
 
 ```
 cd learn-spark-programming-with-databricks
-pip install -r src/requirements.txt
-python3 src/create_dataset.py
+cd src
+pip install -r requirements.txt
+python3 create_dataset.py ../dataset
 ```
 
 Three json files - `movies.json`, `ratings.json` and `users.json` are created at `dataset` folder in the root directory.

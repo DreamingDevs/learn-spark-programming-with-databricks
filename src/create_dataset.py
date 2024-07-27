@@ -1,8 +1,12 @@
 import json
 import random
-import os
+import os, sys
 from faker import Faker
 import pandas as pd
+
+output_dir = sys.argv[1]
+if not output_dir:
+    raise Exception("No output directory configured")
 
 fake = Faker()
 
@@ -53,10 +57,10 @@ users_df = pd.DataFrame(users)
 movies_df = pd.DataFrame(movies)
 ratings_df = pd.DataFrame(ratings)
 
-if not os.path.exists('../dataset'):
-    os.mkdir('../dataset')
+if not os.path.exists(f'{output_dir}'):
+    os.mkdir(f'{output_dir}')
 
-users_df.to_json('../dataset/users.json', orient='records', lines=True)
-movies_df.to_json('../dataset/movies.json', orient='records', lines=True)
-ratings_df.to_json('../dataset/ratings.json', orient='records', lines=True)
+users_df.to_json(f'{output_dir}/users.json', orient='records', lines=True)
+movies_df.to_json(f'{output_dir}/movies.json', orient='records', lines=True)
+ratings_df.to_json(f'{output_dir}/ratings.json', orient='records', lines=True)
 
