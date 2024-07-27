@@ -38,10 +38,9 @@ ChatGTP graciously gave me the Python code which after minor modifications by me
 > NOTE: Make sure Python virtual env. is active.
 
 ```
-cd cd learn-spark-programming-with-databricks
-cd src
-pip install -r requirements.txt
-python3 create_dataset.py
+cd learn-spark-programming-with-databricks
+pip install -r src/requirements.txt
+python3 src/create_dataset.py
 ```
 
 Three json files - `movies.json`, `ratings.json` and `users.json` are created at `dataset` folder in the root directory.
