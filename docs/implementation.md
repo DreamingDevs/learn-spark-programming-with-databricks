@@ -56,3 +56,17 @@ pip install -r requirements.txt
 cd first-app-v2
 python3 app.py ../../dataset/movies.json ../../dataset/output
 ```
+
+## Creating a custom logger
+
+Let's now create a custom logger to log messages from the spark application. The custom logger class is based on Python's logging package which uses `StreamHandler` to stream logs to the sink. The `CustomLogger` code can be found at [lib/logger.py](./../src/first-app-v3/lib/logger.py) and is then used in [app.py](./../src/first-app-v3/app.py).
+
+```
+cd learn-spark-programming-with-databricks
+cd src
+pip install -r requirements.txt
+cd first-app-v3
+python3 app.py ../../dataset/movies.json ../../dataset/output
+```
+
+![First Application V3](../images/first-app-v3.png)
