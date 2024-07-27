@@ -24,4 +24,35 @@ python3 app.py ../../dataset/movies.json ../../dataset/output
 ![First Application](../images/first-app-v1.png)
 
 
+## Handling Spark Configuration
 
+Spark framework allows us to configure application with multiple options to optimize the performance and manage the resources efficiently. Following are few important configuration options.
+
+1. `spark.app.name`
+2. `spark.master`
+3. `spark.executor.memory`
+4. `spark.executor.cores`
+5. `spark.yarn.executor.memoryOverhead`
+6. `spark.driver.memory`
+7. `spark.driver.cores`
+8. `spark.yarn.driver.memoryOverhead`
+9. `spark.default.parallelism`
+10. `spark.sql.shuffle.partitions`
+11. `spark.sql.autoBroadcastJoinThreshold`
+12. `spark.sql.codegen.wholeStage`
+13. `spark.eventLog.enabled`
+14. `spark.eventLog.dir`
+15. `spark.checkpoint.dir`
+16. `spark.checkpoint.compress`
+
+> NOTE: Spark comes with default configuration template which can be typically found at `<SPARK_HOME>/conf/spark-defaults.conf.template`. We can rename it to `spark-default.conf` to make it effective.
+
+Create [app.py](./../src/first-app-v2/app.py) which extends V1 version. All the configuration settings are placed in [spark.conf](./../src/first-app-v2/spark.conf) which is read by [lib/config.py](./../src/first-app-v2/lib/config.py). The `SparkConf` object is the applied to the `SparkSession`.
+
+```
+cd learn-spark-programming-with-databricks
+cd src
+pip install -r requirements.txt
+cd first-app-v2
+python3 app.py ../../dataset/movies.json ../../dataset/output
+```
