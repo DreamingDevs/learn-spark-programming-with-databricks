@@ -87,7 +87,7 @@ zip -r lib.zip lib/*
 cd ../..
 mkdir temp
 cd temp
-mv ../src/first-app-v4/lib.zip
+mv ../src/first-app-v4/lib.zip .
 cp ../src/first-app-v4/app.py .
 cp ../src/first-app-v4/spark.conf .
 cp ../dataset/movies.json .
@@ -108,4 +108,6 @@ At the end of execution, we can delete the `temp` folder.
 cd learn-spark-programming-with-databricks
 rm -rf temp
 ```
+
+## Package Spark Application dependencies
 
