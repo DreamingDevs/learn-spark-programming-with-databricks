@@ -2,11 +2,11 @@ import configparser
 from pyspark import SparkConf
 
 
-def get_spark_conf():
+def get_spark_conf(config_file_path):
     conf = SparkConf()
     parser = configparser.ConfigParser()
 
-    parser.read("spark.conf")
+    parser.read(config_file_path)
     for (key, val) in parser.items("SPARK_APP_CONFIGS"):
         conf.set(key, val)
 

@@ -54,7 +54,7 @@ cd learn-spark-programming-with-databricks
 cd src
 pip install -r requirements.txt
 cd first-app-v2
-python3 app.py ../../dataset/movies.json ../../dataset/output
+python3 app.py ../../dataset/movies.json ../../dataset/output spark.conf
 ```
 
 ## Creating a custom logger

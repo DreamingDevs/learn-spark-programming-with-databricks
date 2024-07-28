@@ -6,12 +6,13 @@ from lib.config import *
 if __name__ == "__main__":
     source_file = sys.argv[1]
     output_files_dir = sys.argv[2]
-    print(f"source_file: {source_file}, output_files_dir: {output_files_dir}")
+    config_file_path = sys.argv[3]
+    print(f"source_file: {source_file}, output_files_dir: {output_files_dir}, config_file_path: {config_file_path}")
 
     # Create a spark session
     spark = SparkSession \
         .builder \
-        .config(conf=get_spark_conf()) \
+        .config(conf=get_spark_conf(config_file_path)) \
         .getOrCreate()
 
     # Define Schema
