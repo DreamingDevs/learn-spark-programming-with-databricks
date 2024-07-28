@@ -61,8 +61,6 @@ python3 app.py ../../dataset/movies.json ../../dataset/output spark.conf
 
 Let's now create a custom logger to log messages from the spark application. The custom logger class is based on Python's logging package which uses `StreamHandler` to stream logs to the sink. The `CustomLogger` code can be found at [lib/logger.py](./../src/first-app-v3/lib/logger.py) and is then used in [app.py](./../src/first-app-v3/app.py).
 
->NOTE: To make the `lib` as a package, we need to add `__init__.py` file.
-
 ```
 cd learn-spark-programming-with-databricks
 cd src
@@ -72,3 +70,42 @@ python3 app.py ../../dataset/movies.json ../../dataset/output spark.conf
 ```
 
 ![First Application V3](../images/first-app-v3.png)
+
+## Deploy the spark application
+
+To make the `lib` as a package, we need to add [lib/\_\_init\_\_.py](./../src/first-app-v4/lib/__init__.py).
+
+Update the [spark.conf](./../src/first-app-v4/spark.conf) with the master url.
+```
+spark.master=spark://Ramis-MacBook-Pro.local:7077
+```
+
+Execute below commands to run our application standalone cluster.
+```
+cd learn-spark-programming-with-databricks/src/first-app-v4/
+zip -r lib.zip lib/*
+cd ../..
+mkdir temp
+cd temp
+mv ../src/first-app-v4/lib.zip
+cp ../src/first-app-v4/app.py .
+cp ../src/first-app-v4/spark.conf .
+cp ../dataset/movies.json .
+```
+
+The above commands creates the `lib` zip package, copies the `lib.zip`, `app.py`, `spark.conf` and `movies.json` to temp directory.
+
+Submit the spark application from temp directory by executing below command. Replace the `--master` url with the master url of your local's standalone cluster.
+
+```
+spark-submit --master spark://Ramis-MacBook-Pro.local:7077 --py-files lib.zip app.py movies.json output spark.conf
+```
+![First Application V4](../images/first-app-v4.png)
+
+At the end of execution, we can delete the `temp` folder.
+
+```
+cd learn-spark-programming-with-databricks
+rm -rf temp
+```
+
