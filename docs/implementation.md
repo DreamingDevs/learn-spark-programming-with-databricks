@@ -49,6 +49,8 @@ Spark framework allows us to configure application with multiple options to opti
 
 Create [app.py](./../src/first-app-v2/app.py) which extends V1 version. All the configuration settings are placed in [spark.conf](./../src/first-app-v2/spark.conf) which is read by [lib/config.py](./../src/first-app-v2/lib/config.py). The `SparkConf` object is the applied to the `SparkSession`.
 
+> NOTE: Make sure the virtual env. is activated.
+
 ```
 cd learn-spark-programming-with-databricks
 cd src
@@ -60,6 +62,8 @@ python3 app.py ../../dataset/movies.json ../../dataset/output spark.conf
 ## Creating a custom logger
 
 Let's now create a custom logger to log messages from the spark application. The custom logger class is based on Python's logging package which uses `StreamHandler` to stream logs to the sink. The `CustomLogger` code can be found at [lib/logger.py](./../src/first-app-v3/lib/logger.py) and is then used in [app.py](./../src/first-app-v3/app.py).
+
+> NOTE: Make sure the virtual env. is activated.
 
 ```
 cd learn-spark-programming-with-databricks
@@ -80,7 +84,10 @@ Update the [spark.conf](./../src/first-app-v4/spark.conf) with the master url.
 spark.master=spark://Ramis-MacBook-Pro.local:7077
 ```
 
+> NOTE: Make sure the virtual env. is activated.
+
 Execute below commands to run our application standalone cluster.
+
 ```
 cd learn-spark-programming-with-databricks/src/first-app-v4/
 zip -r lib.zip lib/*
@@ -110,4 +117,50 @@ rm -rf temp
 ```
 
 ## Package Spark Application dependencies
+
+Sometimes our Spark app will be having dependencies from different packages (like pyarrow, pandas, matplotlib etc.). These packages will not be available readily in spark env. Let's see how we can package the dependencies of our Spark application. 
+
+Let's create a fake dependency by importing pyarrow in [lib/config.py](./../src/first-app-v5/lib/config.py). Include pyarrow and venv-pack in the [requirements.txt](./../src/requirements.txt).
+
+> NOTE: Make sure the virtual env. is activated.
+
+```
+cd learn-spark-programming-with-databricks
+cd src
+pip install -r requirements.txt
+cd ..
+venv-pack -o venv.tar.gz
+
+cd src/first-app-v5/
+zip -r lib.zip lib/*
+cd ../..
+mkdir temp
+cd temp
+mv ../src/first-app-v5/lib.zip .
+cp ../src/first-app-v5/app.py .
+cp ../src/first-app-v5/spark.conf .
+cp ../dataset/movies.json .
+mv ../venv.tar.gz .
+```
+
+Submit the spark application from temp directory by executing below command. We pass the packages virtual environment through `--archives` attribute. The `#env` tells the spark-submit command where to unzip the virtual env.
+
+We also need to set `PYSPARK_DRIVER_PYTHON` and `PYSPARK_PYTHON` to leverage the python executable from the unzipped virtual env. on the cluster. Replace the `--master` url with the master url of your local's standalone cluster.
+
+```
+export PYSPARK_DRIVER_PYTHON=python3
+export PYSPARK_PYTHON=./env/bin/python3
+spark-submit --master spark://Ramis-MacBook-Pro.local:7077 --archives venv.tar.gz#env --py-files lib.zip app.py movies.json output spark.conf
+```
+
+![First Application V5](../images/first-app-v5.png)
+
+At the end of execution, we can delete the `temp` folder.
+
+```
+cd learn-spark-programming-with-databricks
+rm -rf temp
+```
+
+
 
