@@ -133,7 +133,7 @@ Navigate to the `logs` folder as shown in the above image to find the WebUI URL 
 
 We can submit a spark application to test the history server.
 
-
+![Spark History Server UI Jobs](./../images/spark-history-server-ui-jobs.png)
 
 ## Terminal Setup
 
