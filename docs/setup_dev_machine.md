@@ -100,6 +100,41 @@ cd sbin
 ./stop-worker.sh
 ```
 
+## Enable Spark History Server
+
+> NOTE: The paths specified in the below commands will vary based on the installation location. Hence, please verify the paths where Brew installs the software.
+
+We installed Spark at `/opt/homebrew/Cellar/spark-3.5.1-bin-hadoop3`. Let's create a folder `spark-events`.
+
+```
+cd /opt/homebrew/Cellar/spark-3.5.1-bin-hadoop3
+mkdir spark-events
+```
+
+Navigate to `conf` folder under `/opt/homebrew/Cellar/spark-3.5.1-bin-hadoop3` to set up the default spark configuration. If `spark-defaults.conf` is already present, then update it with below configuration, otherwise create `spark-defaults.conf` and add below configuration.
+
+```
+spark.eventLog.enabled           true
+spark.eventLog.dir               file:///opt/homebrew/Cellar/spark-3.5.1-bin-hadoop3/spark-events
+spark.history.fs.logDirectory    file:///opt/homebrew/Cellar/spark-3.5.1-bin-hadoop3/spark-events
+```
+
+Stop and start the master and worker nodes. Start the history server.
+
+```
+cd /opt/homebrew/Cellar/spark-3.5.1-bin-hadoop3
+cd sbin
+./start-history-server.sh
+```
+
+Navigate to the `logs` folder as shown in the above image to find the WebUI URL for the worker node. In my case, it is `http://192.168.0.184:8081/`
+
+![Spark History Server UI](./../images/spark-history-server-ui.png)
+
+We can submit a spark application to test the history server.
+
+
+
 ## Terminal Setup
 
 This section describes my terminal setup details. Except `brew` package manager, this terminal setup is completely optional. 
