@@ -168,7 +168,16 @@ Update [requirements.txt](../src/requirements.txt) with `pytest` dependency.
 
 The [app.py](../src/first-app-v6/app.py) code is refactored to be modular. This way we can mock different functions which would make the overall code more unit test friendly.
 
-Add [\_\_init\_\_.py](../src/first-app-v6/__init__.py) to `first-app-v6` directory to convert it to a module, so that we can import the entire module in unit tests.
+Add [\_\_init\_\_.py](../src/first-app-v6/__init__.py) to `first-app-v6` directory to convert it to a module, so that we can import the entire module in unit tests. Add `first-app-v6` module to `PYTHONPATH` by executing below command (change the path accordingly to you local path).
 
+```
+export PYTHONPATH=$PYTHONPATH:/Users/ramivemula/projects/learn-spark-programming-with-databricks/src/first-app-v6
+```
 
+Create test cases at [test_app.py](../src/tests-v6/test_app.py). Execute the test cases by following command.
+
+```
+cd learn-spark-programming-with-databricks
+pytext src/tests-v6/
+```
 
