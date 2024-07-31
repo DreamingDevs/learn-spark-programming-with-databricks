@@ -3,3 +3,4 @@ faker==26.0.0
 pyspark==3.5.1
 pyarrow==17.0.0
 venv-pack==0.2.0
+pytest==8.3.2

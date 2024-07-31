@@ -162,5 +162,13 @@ cd learn-spark-programming-with-databricks
 rm -rf temp
 ```
 
+## Unit testing Spark Application
+
+Update [requirements.txt](../src/requirements.txt) with `pytest` dependency.
+
+The [app.py](../src/first-app-v6/app.py) code is refactored to be modular. This way we can mock different functions which would make the overall code more unit test friendly.
+
+Add [\_\_init\_\_.py](../src/first-app-v6/__init__.py) to `first-app-v6` directory to convert it to a module, so that we can import the entire module in unit tests.
+
 
 
