@@ -24,7 +24,7 @@ def get_movies_schema():
 
 
 def get_movies_df(spark: SparkSession, source_file: str, schema: StructType):
-    spark \
+    return spark \
         .read \
         .format("json") \
         .schema(schema) \
