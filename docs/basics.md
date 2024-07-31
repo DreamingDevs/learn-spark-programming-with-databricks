@@ -34,3 +34,19 @@ Databricks is a Spark-based managed cloud data platform that provides comprehens
 7. Data ingestion and integration is made easy through Delta Live tables and Autoloader.
 8. Photon acceleration is available to deliver optimized performance in SQL analytical workloads.
 9. Different features available for Data science and ML flows
+
+## Read and Write formats
+
+Spark supports a variety of read and write formats. Here are some of the most commonly used formats and their characteristics:
+
+
+| Format  | Format         | Schema evolution | Suitable for                              | Optimized for Large <br/>and complex data? |
+|---------|----------------|------------------|-------------------------------------------|--------------------------------------------|
+| TEXT    | Row            | Hard             | Log processing, <br/>Simple data exchange | No                                         |
+| JSON    | Nested         | Hard             | Web and APIs                              | No                                         |
+| CSV     | Row            | Hard             | Simple data exchange                      | No                                         |
+| PARQUET | Columnar       | Easy             | Analytical queries                        | Yes                                        |
+| ORC     | Columnar       | Easy             | Analytical queries                        | Yes                                        |
+| AVRO    | Row            | Easy             | Batch & Streaming Data                    | Yes                                        |
+| DELTA   | Columnar       | Easy             | Batch & Streaming Data                    | Yes                                        |
+| HUDI    | Row & Columnar | Easy             | Batch & Streaming Data                    | Yes                                        |
