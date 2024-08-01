@@ -178,6 +178,9 @@ Create test cases at [test_app.py](../src/tests-v6/test_app.py). Execute the tes
 
 ```
 cd learn-spark-programming-with-databricks
-pytext src/tests-v6/
+pytest src/tests-v6/
 ```
+
+![Unit tests](../images/unit-tests.png)
+
 
