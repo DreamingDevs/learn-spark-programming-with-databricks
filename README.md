@@ -21,7 +21,7 @@ Welcome to the "Learn Spark Programming with Databricks" repository! This is you
 | 15    | Enable Spark History Server [Local env.]                      | 07-30-2024 | ![Completed](./images/icons/completed.png) | [Link](./docs/setup_dev_machine.md#enable-spark-history-server)         |
 | 16    | Unit testing of Spark application [Local env.]                | 08-01-2024 | ![Completed](./images/icons/completed.png) | [Link](./docs/implementation.md#unit-testing-spark-application)         |
 | 17    | Read & Write formats in Spark application                     | 07-31-2024 | ![Completed](./images/icons/completed.png) | [Link](./docs/basics.md#read-and-write-formats)                         |
-| 18    | Spark Dataframe API transformations                           | 08-02-2024 | ![Pending](./images/icons/pending.png)     |                                                                         |
+| 18    | Spark Dataframe API transformations                           | 08-02-2024 | ![Completed](./images/icons/completed.png) | [Link](./docs/implementation.md#basic-spark-transformations)            |
 | 19    | Spark Joins                                                   | 08-02-2024 | ![Pending](./images/icons/pending.png)     |                                                                         |
 | 20    | Understanding Narrow and Wide dependency through DAG          | 08-03-2024 | ![Pending](./images/icons/pending.png)     |                                                                         |
 | 21    | Spark Repartition and Bucketing                               | 08-04-2024 | ![Pending](./images/icons/pending.png)     |                                                                         |
