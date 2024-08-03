@@ -38,6 +38,32 @@ def write_movies_df(df: DataFrame, output_dir: str):
         .option("path", output_dir) \
         .save()
 
+def apply_movie_transformations(df: DataFrame):
+    # SELECT / SELECTEXPR
+    df = df.select(col("movie_id").alias("id"), "title", "release_year", "genre", "duration")
+    df = df.selectExpr("id", "title", "release_year", "genre", "duration", "CASE WHEN (release_year % 4 = 0 AND release_year % 100 != 0) OR (release_year % 400 = 0) THEN true ELSE false END AS is_leap_year")
+
+    # WHERE / FILTER
+    df = df.where(movies_df.duration < 120)
+    df = df.filter("duration < 90")
+
+    # WITHCOLUMN
+    df = df.withColumn("movie_title", regexp_replace('title', r'[.]', ''))
+
+    # DROP
+    df = df.drop("title", "is_leap_year")
+
+    # WITHCOLUMNRENAMED
+    df = df.withColumnRenamed("movie_title", "title")
+
+    # ORDERBY
+    df = df.orderBy(["release_year", "duration"], ascending=False)
+
+    # DISTINCT
+    df.select("genre").distinct().show(truncate=False)
+
+    return df
+
 
 if __name__ == "__main__":
     source_file = sys.argv[1]
@@ -59,31 +85,7 @@ if __name__ == "__main__":
     movies_df = get_movies_df(spark, source_file, schema)
 
     # Apply transformations
-
-    # SELECT / SELECTEXPR
-    movies_df = movies_df.select(col("movie_id").alias("id"), "title", "release_year", "genre", "duration")
-    movies_df = movies_df.selectExpr("id", "title", "release_year", "genre", "duration", "CASE WHEN (release_year % 4 = 0 AND release_year % 100 != 0) OR (release_year % 400 = 0) THEN true ELSE false END AS is_leap_year")
-
-    # WHERE / FILTER
-    movies_df = movies_df.where(movies_df.duration < 120)
-    movies_df = movies_df.filter("duration < 90")
-
-    # WITHCOLUMN
-    movies_df = movies_df.withColumn("movie_title", regexp_replace('title', r'[.]', ''))
-
-    movies_df.show(25, truncate=False)
-
-    # DROP
-    movies_df = movies_df.drop("title", "is_leap_year")
-
-    # WITHCOLUMNRENAMED
-    movies_df = movies_df.withColumnRenamed("movie_title", "title")
-
-    # ORDERBY
-    movies_df = movies_df.orderBy(["release_year", "duration"], ascending=False)
-
-    # DISTINCT
-    movies_df.select("genre").distinct().show(truncate=False)
+    movies_df = apply_movie_transformations(movies_df)
 
     movies_df.show(10, truncate=False)
     logger.info(f"Total records of movies dataset: {movies_df.count()}")
