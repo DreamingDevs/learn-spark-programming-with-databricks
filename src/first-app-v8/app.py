@@ -74,7 +74,10 @@ if __name__ == "__main__":
     logger.info(f"Total records of movies dataset: {movies_df.count()}, ratings dataset: {ratings_df.count()}")
 
      # Join movies_df and ratings_df on movie_id
-    movie_ratings_df = movies_df.join(ratings_df, on="movie_id", how="inner")
+    movie_ratings_df = movies_df.join(ratings_df, movies_df.movie_id == ratings_df.movie_id, how="left_outer").drop(ratings_df.movie_id)
+
+    # ALTERNATIVE
+    # movie_ratings_df = movies_df.join(ratings_df, "movie_id", "left_outer")
 
     # Show the joined DataFrame
     movie_ratings_df.show(10, truncate=False)

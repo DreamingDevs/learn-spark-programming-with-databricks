@@ -222,6 +222,14 @@ Spark supports following jonins.
 
 `inner` join implementation of `movies` and `ratings` datasets can be found at [app.py](../src/first-app-v8/app.py).
 
+Following are key aspects of spark joins.
+
+1. Make sure column names are unique between the datasets.
+2. Ensure the columns of join condition have same schema.
+3. Avoid cartesian product joins, which means make sure the join condition is not broad.
+
+> NOTE: There are performance optimization strategies which can be applied to improve join performance. We will discuss them in subsequent sections.
+
 ![spark-join](../images/spark-join.png)
 
 
