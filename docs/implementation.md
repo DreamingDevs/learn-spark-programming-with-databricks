@@ -197,8 +197,6 @@ Following are basic transformations which are available in Spark. Code can be fo
 
 > NOTE: We will discuss aggregate and join based transformations in subsequent sections. This section only covers basic transformations.
 
-
-
 | Transformation      | Details                                                           |
 |---------------------|-------------------------------------------------------------------|
 | select() / alias()  | Projects a set of expressions and returns a new DataFrame.        |
@@ -209,6 +207,22 @@ Following are basic transformations which are available in Spark. Code can be fo
 | withColumnRenamed() | Renames a given column name                                       |
 | orderBy() / sort()  | Returns a new DataFrame sorted by the specified columns.          |
 | distinct()          | Returns a new DataFrame with distinct rows.                       |
+
+## Joins in Spark Application
+
+Spark supports following jonins.
+
+1. inner: Returns only the rows that have matching values in both DataFrames.
+2. outer: Returns all rows from both DataFrames irrespective whether there are matching or not.
+3. left_outer: Returns all rows from the left DataFrame and the matched rows from the right DataFrame.
+4. right_outer: Returns all rows from the right DataFrame and the matched rows from the left DataFrame.
+5. left_semi: Returns only the rows from the left DataFrame for which there is a match in the right DataFrame.
+6. left_anti: Returns only the rows from the left DataFrame for which there is no match in the right DataFrame.
+7. crossJoin: Returns the Cartesian product of the two DataFrames.
+
+`inner` join implementation of `movies` and `ratings` datasets can be found at [app.py](../src/first-app-v8/app.py).
+
+![spark-join](../images/spark-join.png)
 
 
 
