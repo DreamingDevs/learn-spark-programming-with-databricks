@@ -23,8 +23,8 @@ Welcome to the "Learn Spark Programming with Databricks" repository! This is you
 | 17    | Read & Write formats in Spark application                     | 07-31-2024 | ![Completed](./images/icons/completed.png)    | [Link](./docs/basics.md#read-and-write-formats)                         |
 | 18    | Spark Dataframe API transformations                           | 08-02-2024 | ![Completed](./images/icons/completed.png)    | [Link](./docs/implementation.md#basic-spark-transformations)            |
 | 19    | Spark Joins                                                   | 08-02-2024 | ![Completed](./images/icons/completed.png)    | [Link](./docs/implementation.md#joins-in-spark-application)             |
-| 20    | Spark Aggregates                                              | 08-05-2024 | ![In-Progress](./images/icons/inprogress.png) |                                                                         |
-| 21    | Understanding Narrow and Wide dependency through DAG          | 08-06-2024 | ![Pending](./images/icons/pending.png)        |                                                                         |
+| 20    | Spark Aggregates                                              | 08-05-2024 | ![Completed](./images/icons/completed.png)    | [Link](./docs/implementation.md#aggregates-in-spark-application)        |
+| 21    | Understanding Narrow and Wide dependency through DAG          | 08-06-2024 | ![In-progress](./images/icons/inprogress.png) |                                                                         |
 | 22    | Shuffle Sort Merge Join vs Broadcast Join strategies          | 08-06-2024 | ![Pending](./images/icons/pending.png)        |                                                                         |
 | 23    | Spark Repartition and Bucketing                               | 08-07-2024 | ![Pending](./images/icons/pending.png)        |                                                                         |
 | 24    | Spark Windowing functions                                     | 08-08-2024 | ![Pending](./images/icons/pending.png)        |                                                                         |

@@ -210,7 +210,7 @@ Following are basic transformations which are available in Spark. Code can be fo
 
 ## Joins in Spark Application
 
-Spark supports following jonins.
+Spark supports following joins.
 
 1. inner: Returns only the rows that have matching values in both DataFrames.
 2. outer: Returns all rows from both DataFrames irrespective whether there are matching or not.
@@ -232,13 +232,13 @@ Following are key aspects of spark joins.
 
 ![spark-join](../images/spark-join.png)
 
+## Aggregates in Spark Application
 
+Following are few types of aggregates which are support by spark - `avg, count, sum, min, max, stddev, variance, approximate_count_distinct, first, last`
 
+Aggregates implementation of `movies` and `ratings` datasets can be found at [app.py](../src/first-app-v9/app.py).
 
-
-
-
-
+![spark-join](../images/spark-aggregates.png)
 
 
 
