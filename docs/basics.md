@@ -35,7 +35,7 @@ Databricks is a Spark-based managed cloud data platform that provides comprehens
 8. Photon acceleration is available to deliver optimized performance in SQL analytical workloads.
 9. Different features available for Data science and ML flows
 
-## Read and Write formats
+## Read and Write formats and modes
 
 Spark supports a variety of read and write formats. Here are some of the most commonly used formats and their characteristics:
 
@@ -50,6 +50,13 @@ Spark supports a variety of read and write formats. Here are some of the most co
 | AVRO    | Row            | Easy             | Batch & Streaming Data                    | Yes                                        |
 | DELTA   | Columnar       | Easy             | Batch & Streaming Data                    | Yes                                        |
 | HUDI    | Row & Columnar | Easy             | Batch & Streaming Data                    | Yes                                        |
+
+In Spark, when writing data to external storage, we can specify different write modes that determine how the data is written in relation to existing data. 
+
+1. **Append**: Adds the new data to the existing data
+2. **Overwrite**: Replaces the existing data with the new data.
+3. **Ignore**: Does nothing if data already exists
+4. **ErrorIfExists** (default): Throws an error if data already exists
 
 ## Spark Lazy evaluation with transformations and actions
 
