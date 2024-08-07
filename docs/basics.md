@@ -50,3 +50,10 @@ Spark supports a variety of read and write formats. Here are some of the most co
 | AVRO    | Row            | Easy             | Batch & Streaming Data                    | Yes                                        |
 | DELTA   | Columnar       | Easy             | Batch & Streaming Data                    | Yes                                        |
 | HUDI    | Row & Columnar | Easy             | Batch & Streaming Data                    | Yes                                        |
+
+## Spark Lazy evaluation with transformations and actions
+
+Let's first understand Spark's transformations and actions. Transformations are operations on existing Spark DataFrame to produce new DataFrame. Examples are `select`, `selectExpr`, `filter`, `where`, `grouoBy`, `agg`, `join`, and `withColumn`, etc. Actions are operations which execute all the transformations and return the result to the drive program. Example actions are `show`, `collect`, `write`, `count`.
+
+Transformations are lazy, they don't trigger the execution, whereas actions trigger the execution. Spark creates an execution plan in the form of a DAG (Directed Acyclic Graph) based on transformations, which is then optimized to reduce data shuffle and operations. Finally, the DAG is executed when an action is encountered. This is called lazy evaluation in Spark.
+
