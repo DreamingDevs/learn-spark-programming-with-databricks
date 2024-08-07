@@ -240,9 +240,46 @@ Aggregates implementation of `movies` and `ratings` datasets can be found at [ap
 
 ![spark-join](../images/spark-aggregates.png)
 
+## Narrow and Wide dependency in Spark Application
 
+Narrow and wide dependencies in Spark is about how data will be shuffled across the Spark cluster when certain transformations are applied to produce results.
 
+| Dependency | Description                                                                                                                                                                                                  | Examples                           | 
+|------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|------------------------------------|
+| Narrow     | Any transformation operation which can be performed on the data of a single partition to provide the results. These operations are faster because there is no additional work for spark to shuffle the data. | `select`, `filter`, `where`, `map` |
+| Wide       | Any transformation operation which needs data from multiple partitions to provide the results. These operations are slow due to data shuffle operations.                                                     | `groupBy`, `join`, `orderBy`       |
 
+Spark engine creates an execution plan of the Spark application in the form of a DAG - Directed Acyclic Graph. A DAG is combination of multiple jobs, where each job is further divided into stages. Spark will execute multiple tasks under each stage.
+
+The execution plan is optimized to ensure minimal reshuffling of data and combine multiple operations to remove redundant processing. We can view the generated DAG by going to the Spark's history server.
+
+> NOTE: Refer to `Enable Spark History Server` section for details on how to setup history server. In my case, the history server is running at `http://192.168.0.184:18080/`.
+
+> NOTE: Below executions are ran by using spark-submit command. For more details, please refer to previous sections.
+
+Lets' first submit a simple Spark application which just reads the `ratings.json` file and performs a `collect` action. Remember that the DAG will be executed only on performing a Spark action. Take the reference of [app-v1-py](../src/first-app-v10/app-v1.py). We can clearly see that there is only one job with one stage which is reading JSON. Also note that there are no shuffle operations (from the table shown in below image).
+
+![Spark DAG 1](../images/spark-dag-1.png)
+
+Now let's update the code to `repartition` the dataframe and see how the DAG changes. Take the reference of [app-v2-py](../src/first-app-v10/app-v2.py). The DAG shows we have one job with two stages. The first stage is to read the json file, repartition and write to exchange. The second stage is to read from exchange and collect the data.
+
+The DAG shows that the json file has been processed and as part of `reparition` operation the data was made available at `exchange` (shuffle write operation). Finally, when we use `collect`, the shuffle read operation came in from exchange.
+
+![Spark DAG 2](../images/spark-dag-2.png)
+
+Now lets update the code by applying few transformations. We are going to apply `where`, `groupBy` and `agg` transformations as referred in [app-v3-py](../src/first-app-v10/app-v3.py). The DAG shows we have one job, but with 3 stages. The first stage holds the same responsibility as mentioned previously. The second stage where the shuffle read operation (because of `groupBy` transformation) happens, transformations get applied and shuffle write operation to write the output to exchange. The final stage will read the data from exchange as part of collect operation.
+
+![Spark DAG 3](../images/spark-dag-3.png)
+
+The details of individual stage can be viewed by clicking on the respective stage. The below image shows the DAG and details of Stage 2 from above execution. We can clearly see that this stage read 99648 records from exchange, applied transformations and finally wrote back 19931 records to exchange.
+
+![Spark Stage DAG 4](../images/spark-stage-dag-4.png)
+
+The final execution we do is by removing `groupBy` and `agg` transformations and only having `where` transformation. 
+
+We can clearly see that the shuffle write and read operations are reduced when compared with previous execution. This is because `where` is a narrow dependency transformation, whereas `groupBy` and `agg` are wide dependency transformations.
+
+![Spark DAG 5](../images/spark-dag-5.png)
 
 
 
