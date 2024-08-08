@@ -257,7 +257,7 @@ The execution plan is optimized to ensure minimal reshuffling of data and combin
 
 > NOTE: Below executions are ran by using spark-submit command. For more details, please refer to previous sections.
 
-Lets' first submit a simple Spark application which just reads the `ratings.json` file and performs a `collect` action. Remember that the DAG will be executed only on performing a Spark action. Take the reference of [app-v1-py](../src/first-app-v10/app-v1.py). We can clearly see that there is only one job with one stage which is reading JSON. Also note that there are no shuffle operations (from the table shown in below image).
+Lets' first submit a simple Spark application which just reads the `ratings.json` file and performs a `collect` action. Remember that the DAG will be executed only on performing a Spark action. Take the reference of [app-v1.py](../src/first-app-v10/app-v1.py). We can clearly see that there is only one job with one stage which is reading JSON. Also note that there are no shuffle operations (from the table shown in below image).
 
 ![Spark DAG 1](../images/spark-dag-1.png)
 
@@ -281,6 +281,46 @@ We can clearly see that the shuffle write and read operations are reduced when c
 
 ![Spark DAG 5](../images/spark-dag-5.png)
 
+## Partitioning and Bucketing in Spark Application
 
+**Repartition**: It is a method to increase or decrease the number of partitions in a DataFrame (in-memory partitions of executors). This requires a full shuffle of data and can improve the performance by improving the scope for parallelism. We can use `repartition` methods to create partitions.
 
+`repartition` takes `numPartitions` and `cols` as parameters. To give an example, we can create 20 partitions of movies dataset and use `release_year` as the column which will decide on which records can be placed under which partition. Example code can be found out at [app.py](../src/first-app-v11/app.py).
+
+```
+movies_df = movies_df.repartition(20, "release_year")
+```
+
+> NOTE: Identification of partition keys is important, typically they should be the columns on which aggregates are operated.
+> If the cardinality of partition key (example - release_year) is high, we end up in skewed partitions which will impact performance.
+> The default spread of partitions happen based on `spark.default.parallelism` configuration. 
+ 
+**PartitionBy**: It is the technique used during the write operation to organize the data in the physical file system based on specified partition key. This technique is usually used to optimize the read operations during queries. This organization of data is not going to impact the repartition of the data across executors. Example code can be found out at [app.py](../src/first-app-v11/app.py).
+
+```
+df.write \
+    .format("parquet") \
+    .partitionBy("release_year") \
+    .mode("overwrite") \
+    .option("path", output_dir) \
+    .save()
+```
+
+**Bucketing**: It is the process of organizing data into physical buckets. Unlike `partitionBy` which creates file directories based on partition key, `bucketBy` will create fixed files and store data to respective files by computing hash of the partition key. This will improve the performance of queries as there would be no need to traverse a larger storage. We can use `bucketBy` to create buckets. 
+
+```
+def write_df(df: DataFrame, output_dir: str):
+    df.write \
+        .format("parquet") \
+        .bucketBy("release_year") \
+        .mode("overwrite") \
+        .option("path", output_dir) \
+        .save()
+```
+
+![Partitions](../images/partitions.png)
+
+As we can see the log message says that we have 20 partition (caused by `reparition`). We can also see the physical data is segregated by release_year (due to `partitionBy`).
+
+![Partitions](../images/partitions-1.png)
 
