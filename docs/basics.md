@@ -35,6 +35,25 @@ Databricks is a Spark-based managed cloud data platform that provides comprehens
 8. Photon acceleration is available to deliver optimized performance in SQL analytical workloads.
 9. Different features available for Data science and ML flows
 
+## Spark Architecture
+
+In this section, we are going to learn the details of Spark architecture. Let's first understand different components of Spark architecture.
+
+| Component                  | Primary responsibilities                                                                                                                                                                                                           |
+|----------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| SparkContext               | SparkContext is the entry point to all of the components of Apache Spark (execution engine). It coordinates with Cluster manager for requesting resources and launching executors. It also helps in configuring spark application. |
+| Driver                     | It is a process which creates and hosts the SparkContext. Converts code into logical execution plan. Requests resources from the Cluster Manager and distributes tasks to Executors.                                               |
+| Executors                  | Execute individual tasks assigned by the Driver. Store intermediate data in memory or disk. Report the status of each task back to the Driver.                                                                                     |
+| Cluster Manager            | Schedules and allocates resources to various Spark applications. Launches Executor processes on worker nodes.                                                                                                                      |
+| DAG Scheduler              | DAGScheduler transforms a logical execution plan to a physical execution plan (using stages), keeps track of preferred locations to execute stages. Handover the stages for to Task Scheduler.                                     |
+| Task Scheduler             | Distributes tasks to the Executors. Ensures that tasks are balanced and executed in the right order.                                                                                                                               |
+| Shuffle Service            | Manages the movement of data between Executors during shuffle operations. Ensures that the data required by downstream tasks is available on the correct nodes.                                                                    |
+| Broadcast and Accumulators | These are shared variables in Spark used for broadcasting large read-only data to all executors efficiently. Accumulators used to perform efficient aggregation operations like counters and sums.                                 |
+
+> NOTE: The worker nodes and storage systems provide the required compute and storage infra for cluster manager and Spark framework.
+
+![Spark Architecture](../images/spark-architecture.png)
+
 ## Read and Write formats and modes
 
 Spark supports a variety of read and write formats. Here are some of the most commonly used formats and their characteristics:
