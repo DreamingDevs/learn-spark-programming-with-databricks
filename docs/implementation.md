@@ -185,7 +185,7 @@ pytest src/tests-v6/
 
 ## Basic Spark Transformations
 
-PySpark provides a variety of transformations that can be applied to DataFrames and RDDs. However, RDD based programming is not encouraged by the Spark community because of following major advantages of DataFrame APIs. Spark DataFrame is `immutable` which means any transformation will lead to a new DataFrame instance.
+PySpark provides a variety of transformations that can be applied to DataFrames and RDDs. However, RDD based programming is not encouraged by the Spark community because of following advantages of DataFrame APIs. Spark DataFrame is `immutable` which means any transformation will lead to a new DataFrame instance.
 
 1. Abstractions are user-friendly and expressive
 2. Wide range of built-in functions 
@@ -197,16 +197,17 @@ Following are basic transformations which are available in Spark. Code can be fo
 
 > NOTE: We will discuss aggregate and join based transformations in subsequent sections. This section only covers basic transformations.
 
-| Transformation      | Details                                                           |
-|---------------------|-------------------------------------------------------------------|
-| select() / alias()  | Projects a set of expressions and returns a new DataFrame.        |
-| selectExpr()        | Uses SQL expression to project the data                           | 
-| filter() / where()  | Filters rows using a given condition. Filter uses SQL expression. |
-| withColumn()        | Adds a new column or replaces an existing column.                 |
-| drop()              | Drops a column from the DataFrame.                                |
-| withColumnRenamed() | Renames a given column name                                       |
-| orderBy() / sort()  | Returns a new DataFrame sorted by the specified columns.          |
-| distinct()          | Returns a new DataFrame with distinct rows.                       |
+| Transformation      | Details                                                                       |
+|---------------------|-------------------------------------------------------------------------------|
+| select() / alias()  | Projects a set of expressions and returns a new DataFrame.                    |
+| selectExpr()        | Uses SQL expression to project the data                                       | 
+| filter() / where()  | Filters rows using a given condition. Filter uses SQL expression.             |
+| withColumn()        | Adds a new column or replaces an existing column.                             |
+| drop()              | Drops a column from the DataFrame.                                            |
+| withColumnRenamed() | Renames a given column name                                                   |
+| orderBy() / sort()  | Returns a new DataFrame sorted by the specified columns.                      |
+| distinct()          | Returns a new DataFrame with distinct rows.                                   |
+| udf()               | User Defined Function (UDF) is used to implement custom logic on a DataFramer |
 
 ## Joins in Spark Application
 

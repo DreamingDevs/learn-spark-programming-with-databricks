@@ -38,6 +38,9 @@ def write_movies_df(df: DataFrame, output_dir: str):
         .option("path", output_dir) \
         .save()
 
+def process_genre(genre: str):
+    return genre.replace("-", "")
+
 def apply_movie_transformations(df: DataFrame):
     # SELECT / SELECTEXPR
     df = df.select(col("movie_id").alias("id"), "title", "release_year", "genre", "duration")
@@ -61,6 +64,9 @@ def apply_movie_transformations(df: DataFrame):
 
     # DISTINCT
     df.select("genre").distinct().show(truncate=False)
+
+    genre_udf = udf(process_genre, StringType())
+    df = df.withColumn("genre", genre_udf("genre"))
 
     return df
 
