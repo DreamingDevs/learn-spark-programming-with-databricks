@@ -325,3 +325,48 @@ As we can see the log message says that we have 20 partition (caused by `reparit
 
 ![Partitions](../images/partitions-1.png)
 
+## Windowing functions in Spark Application
+
+Spark windowing functions are used to perform calculations across a set of rows that are related to the current row. These functions are particularly useful we want to perform operations such as running totals, moving averages, rankings etc., over a "window" of data.
+
+A window specification contains following -
+- **Partitioning**: Divides the dataset into partitions to which the window function is applied independently.
+- **Ordering**: Specifies the order of rows within each partition.
+- **Frame**: Defines a sliding window of rows around the current row, based on the order.
+
+The implementation of windowing functions can be found at [app.py](../src/first-app-v12/app.py).
+
+We can give rank to the movies in a partition as shown below.
+
+```
+# Give a rank to the movies within a genre in the descending order of duration
+window_spec = Window.partitionBy("genre").orderBy(desc("duration"))
+movies_df = movies_df.withColumn("rank", rank().over(window_spec))
+```
+
+The sliding window can be of below formations based on `Window.unboundedPreceding`, `Window.currentRow` and `Window.unboundedFollowing`.
+```
+# Incremental cumulative sum of durations within each genre, ordered by duration
+window_spec_cum_sum = Window.partitionBy("genre").orderBy(desc("duration")).rowsBetween(Window.unboundedPreceding, Window.currentRow)
+movies_df = movies_df.withColumn("cumulative_duration", sum("duration").over(window_spec_cum_sum))
+```
+Window.unboundedPreceding starts from the first row in the partition. Window.currentRow ends at the current row. The sum function accumulates the duration values from the first row of the partition to the current row as shown below.
+
+![Window Functions 1](../images/window-functions-1.png)
+
+```
+# Decremental Total remaining duration within each genre, ordered by duration
+window_spec_remaining_duration = Window.partitionBy("genre").orderBy(desc("duration")).rowsBetween(Window.currentRow, Window.unboundedFollowing)
+movies_df = movies_df.withColumn("remaining_duration", sum("duration").over(window_spec_remaining_duration))
+```
+Window.currentRow starts at the current row. Window.unboundedFollowing ends at the last row in the partition. The sum function calculates the total duration from the current row to the end of the partition.
+
+![Window Functions 2](../images/window-functions-2.png)
+
+```
+# Total sum of durations within each genre, ordered by duration
+window_spec_cum_sum = Window.partitionBy("genre").orderBy(desc("duration")).rowsBetween(Window.unboundedPreceding, Window.unboundedFollowing)
+movies_df = movies_df.withColumn("total_duration", sum("duration").over(window_spec_cum_sum))
+```
+
+![Window Functions 3](../images/window-functions-3.png)
