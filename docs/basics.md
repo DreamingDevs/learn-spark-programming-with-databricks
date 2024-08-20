@@ -79,7 +79,66 @@ In Spark, when writing data to external storage, we can specify different write 
 
 ## Spark Lazy evaluation with transformations and actions
 
-Let's first understand Spark's transformations and actions. Transformations are operations on existing Spark DataFrame to produce new DataFrame. Examples are `select`, `selectExpr`, `filter`, `where`, `grouoBy`, `agg`, `join`, and `withColumn`, etc. Actions are operations which execute all the transformations and return the result to the drive program. Example actions are `show`, `collect`, `write`, `count`.
+Let's first understand Spark's transformations and actions. Transformations are operations on existing Spark DataFrame to produce new DataFrame. Examples are `select`, `selectExpr`, `filter`, `where`, `groupBy`, `agg`, `join`, and `withColumn`, etc. Actions are operations which execute all the transformations and return the result to the drive program. Example actions are `show`, `collect`, `write`, `count`.
 
 Transformations are lazy, they don't trigger the execution, whereas actions trigger the execution. Spark creates an execution plan in the form of a DAG (Directed Acyclic Graph) based on transformations, which is then optimized to reduce data shuffle and operations. Finally, the DAG is executed when an action is encountered. This is called lazy evaluation in Spark.
+
+## Shuffle Sort Merge Join and Broadcast Join
+
+Spark supports two common types of joins - `Shuffle Sort Merge Join` and `Broadcast Join`.
+
+**Shuffle Sort Merge Join**:
+It is the default join strategy in Spark which is designed to handle joins between two large datasets that are distributed across the cluster. It contains `shuffle`, `sort`, `merge` operations. 
+
+- **Shuffle**: Spark first redistributes the data across different partitions based on the join key. This shuffle ensures that all records with the same join key end up in the same partition.
+- **Sort**: Once the data is shuffled, it is sorted within each partition by the join key.
+- **Merge**: Finally, the sorted data is merged, meaning the join operation is performed by combining the records from both datasets that have the same key.
+
+> NOTE: `spark.sql.shuffle.partitions` setting is used to configure the number of shuffle partitions.
+
+The following code from [app.py](./../src/first-app-v13/app-v1.py) will trigger a shuffle sort merge join.
+
+```
+# Read the JSON file into a DataFrame with the defined schema
+movies_df = get_df(spark, source_movies_file, movies_schema)
+ratings_df = get_df(spark, source_ratings_file, ratings_schema)
+
+# To simulate the shuffle by creating partitions
+movies_df = movies_df.repartition(4)
+ratings_df = ratings_df.repartition(4)
+
+# Join movies_df and ratings_df on movie_id
+movie_ratings_df = movies_df.join(ratings_df, movies_df.movie_id == ratings_df.movie_id, how="left_outer").drop(ratings_df.movie_id)
+```
+
+The DAG shows that a shuffle operation happens at Stage 10 through reduce exchanges which are reading data from previous stages map exchanges.
+
+![Shuffle Sort Merge Join](./../images/shuffle-sort-merge-join.png)
+
+**Broadcast Join**:
+Broadcast Join is used when one of the datasets is small enough to fit into memory of the executor. In this approach, the smaller dataset is broadcasted to all the worker nodes (which runs executors) in the cluster, eliminating the need for a shuffle operation.
+
+> NOTE: Spark automatically selects Broadcast Join if the smaller dataset's size is below a certain threshold. `spark.sql.autoBroadcastJoinThreshold` setting is used to control the maximum size of the smaller dataset that can be broadcasted.
+> NOTE: Manual broadcasting can be achieved using `broadcast()` function while performing a join operation.
+
+The following code from [app.py](./../src/first-app-v13/app-v2.py) will trigger a broadcast join.
+
+```
+# Read the JSON file into a DataFrame with the defined schema
+movies_df = get_df(spark, source_movies_file, movies_schema)
+ratings_df = get_df(spark, source_ratings_file, ratings_schema)
+
+# to ensure we broadcast only a smaller dataset
+ratings_df = ratings_df.limit(100)
+
+# to ensure we have parititons spread across 
+movies_df = movies_df.repartition(4)
+
+# Join movies_df and ratings_df on movie_id
+movie_ratings_df = movies_df.join(broadcast(ratings_df), movies_df.movie_id == ratings_df.movie_id, how="left_outer").drop(ratings_df.movie_id)
+```
+
+The DAG shows that a broadcast exchange operation happens at Stage 3 where the smaller ratings dataframe is broadcast to the executors to perform the join.
+
+![Broadcast Join](./../images/broadcast-join.png)
 
