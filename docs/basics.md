@@ -111,6 +111,13 @@ ratings_df = ratings_df.repartition(4)
 movie_ratings_df = movies_df.join(ratings_df, movies_df.movie_id == ratings_df.movie_id, how="left_outer").drop(ratings_df.movie_id)
 ```
 
+Set shuffle partitions in spark.conf.
+```
+spark.app.name=HelloSpark
+spark.master=local[4]
+spark.sql.shuffle.partitions=4
+```
+
 The DAG shows that a shuffle operation happens at Stage 10 through reduce exchanges which are reading data from previous stages map exchanges.
 
 ![Shuffle Sort Merge Join](./../images/shuffle-sort-merge-join.png)
@@ -136,6 +143,13 @@ movies_df = movies_df.repartition(4)
 
 # Join movies_df and ratings_df on movie_id
 movie_ratings_df = movies_df.join(broadcast(ratings_df), movies_df.movie_id == ratings_df.movie_id, how="left_outer").drop(ratings_df.movie_id)
+```
+
+Set shuffle partitions in spark.conf.
+```
+spark.app.name=HelloSpark
+spark.master=local[4]
+spark.sql.shuffle.partitions=4
 ```
 
 The DAG shows that a broadcast exchange operation happens at Stage 3 where the smaller ratings dataframe is broadcast to the executors to perform the join.
