@@ -4,3 +4,6 @@
 dataset/*
 __pycache__
 temp
+.pytest_cache
+metastore_db
+derby.log

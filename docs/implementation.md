@@ -370,3 +370,83 @@ movies_df = movies_df.withColumn("total_duration", sum("duration").over(window_s
 ```
 
 ![Window Functions 3](../images/window-functions-3.png)
+
+
+## Spark SQL with In-memory Hive metastore
+
+The Hive Metastore in Spark acts as a central repository to store metadata for tables, databases, and other data entities that can be queried using SQL. It helps in -
+
+- Storing the table schemas, column types, and data locations. 
+- Helps in data cataloging and SQL querying capabilities.
+- Partition based query optimizations
+- Support schema evolution
+- Integration with persistent relational database like MySQL, PostgreSQL, Derby for storing the metadata.
+
+> NOTE: We can submit SQL queries for execution on Spark cluster using Thrift Server interface.
+
+We can configure our local standalone cluster's Hive metastore with persistent databases like MySQL etc. However, for this learning exercise, we are going to configure it using In-memory store.
+
+Firstly, enable Hive support.
+```
+def get_spark_session(config_file_path):
+    return SparkSession \
+        .builder \
+        .config(conf=get_spark_conf(config_file_path)) \
+        .enableHiveSupport() \
+        .getOrCreate()
+```
+
+Configure the SparkSession to use in-memory hive metastore with the directory (to store managed tables) and derby database (in-memory) classes which are required to support Spark SQL. The complete configuration can be found at [aprk.conf](./../src/first-app-v14/spark.conf).
+
+```
+spark.sql.catalogImplementation=in-memory
+spark.sql.warehouse.dir=/tmp/spark-warehouse
+spark.sql.hive.metastore.sharedPrefixes=org.apache.derby
+```
+
+Create an external table pointing to the parquet files directory. We can also use `saveAsTable` method to write the DataFrame as a managed Hive table (for example `df.write.mode("overwrite").format("parquet").partitionBy("release_year").saveAsTable(table_name)`).
+
+```
+def create_hive_table(spark: SparkSession, table_name: str, parquet_dir: str):
+    spark.sql(f"""
+        CREATE EXTERNAL TABLE IF NOT EXISTS {table_name} (
+            movie_id STRING,
+            title STRING,
+            genre STRING,
+            duration INT
+        )
+        PARTITIONED BY (release_year INT)
+        STORED AS PARQUET
+        LOCATION '{parquet_dir}'
+    """)
+    # Optionally, you can load the partitions into the table
+    spark.sql(f"MSCK REPAIR TABLE {table_name}")
+```
+
+Execute the Spark SQL queries. The completed code can be found at [app.py](./../src/first-app-v14/app.py).
+
+```
+spark = get_spark_session(config_file_path)
+
+# Define Schema
+movies_schema = get_movies_schema()
+
+# Read the JSON file into a DataFrame with the defined schema
+movies_df = get_df(spark, source_movies_file, movies_schema)
+
+# Write the DataFrame in parquet format
+write_df(movies_df, f"{output_files_dir}/movies")
+
+# Create the Hive table pointing to the Parquet files
+create_hive_table(spark, "movies", f"{os.path.abspath(output_files_dir)}/movies")
+
+# Query the Hive table
+result_df = spark.sql("SELECT title, genre, release_year FROM movies WHERE release_year >= 2000")
+result_df.show()
+```
+
+When we execute the program, we get below output. Similarly, we can use other regular SQL commands to execute.
+
+> NOTE: The derby in-memory hive metastore creates folders (`metastore_db`) and files (`derby.log`) in current working directory. Add these folders and files to .gitignore.
+
+![Spark SQL](./../images/spark-sql.png)
