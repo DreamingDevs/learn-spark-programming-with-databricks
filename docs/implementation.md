@@ -450,3 +450,41 @@ When we execute the program, we get below output. Similarly, we can use other re
 > NOTE: The derby in-memory hive metastore creates folders (`metastore_db`) and files (`derby.log`) in current working directory. Add these folders and files to .gitignore.
 
 ![Spark SQL](./../images/spark-sql.png)
+
+## Caching in Spark application
+
+Caching in Spark application is the process of storing the Spark SQL table / DataFrame data in-memory (or on disk) to avoid repeated computation and improve the performance of the application. This technique is helpful when the same DataFrame is access multiple times across multiple transformations in the same application.
+
+Below code can be found at [app.py](./../src/first-app-v15/app.py) and related configuration [spark.conf](./../src/first-app-v15/spark.conf).
+
+#### Caching a DataFrame
+```
+# Cache the ratings_df
+ratings_cache_df = ratings_df.cache() # Default is StorageLevel.MEMORY_AND_DISK_DESER
+
+# Alternative way to cache by specifying the storage mechanism
+ratings_cache_df = ratings_df.persist(storagelevel.StorageLevel.MEMORY_ONLY)
+
+# Clear ratings Dataframe cache
+ratings_cache_df.unpersist()
+```
+
+> NOTE: Available storage levels are - NONE, DISK_ONLY, DISK_ONLY_2, DISK_ONLY_3, MEMORY_ONLY, MEMORY_ONLY_2, MEMORY_AND_DISK, MEMORY_AND_DISK_2, OFF_HEAP, MEMORY_AND_DISK_DESER. These options are useful to control the storage mechanism between memory, disk and off-heap. This setting also controls the replication and serialization of cache. 
+
+#### Caching a SQL Table
+```
+# Cache the movies SQL table
+cache_query = spark.sql("CACHE Table movies")
+
+# Read from cached table
+movies_cache_df = spark.sql("SELECT title, genre, release_year FROM movies WHERE release_year >= 2000")
+
+# Clear the movies SQL cache
+spark.catalog.clearCache()    
+```
+
+Once we execute the app, we can inspect the DAG visualization where we can see the im-memory table and in-memory DataFrame is being used for computation.
+
+![Spark Cache](./../images/cache.png)
+
+![Spark Cache](./../images/cache-1.png)
