@@ -105,7 +105,7 @@ if __name__ == "__main__":
     movie_ratings_df.show(25, truncate=False)
 
     # Clear the movies SQL cache
-    spark.catalog.clearCache()
+    spark.sql("uncache table movies") 
 
     # Clear ratings Dataframe cache
     ratings_cache_df.unpersist()

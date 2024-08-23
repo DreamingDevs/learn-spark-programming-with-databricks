@@ -474,13 +474,36 @@ ratings_cache_df.unpersist()
 #### Caching a SQL Table
 ```
 # Cache the movies SQL table
-cache_query = spark.sql("CACHE Table movies")
+cache_query = spark.sql("CACHE Table movies OPTIONS ('storageLevel' 'MEMORY_ONLY');")
 
 # Read from cached table
 movies_cache_df = spark.sql("SELECT title, genre, release_year FROM movies WHERE release_year >= 2000")
 
 # Clear the movies SQL cache
-spark.catalog.clearCache()    
+spark.sql("uncache table movies")   
+```
+
+> NOTE: To remove all items from the cache, we can use `spark.sql("clear cache")` or `spark.catalog.clearCache()`. 
+>
+> We can also use catalog methods to cache like `spark.catalog.cacheTable(table_name)` and `spark.catalog.uncacheTable("database.table_name")`.
+
+Some settings which can be tuned to get optimized caching are described as follows.
+
+```
+# the number of rows that will be stored in a batch in the columnar cache.
+spark.conf.set("spark.sql.inMemoryColumnarStorage.batchSize", "5000")
+
+# whether the in-memory columnar storage should be compressed
+spark.conf.set("spark.sql.inMemoryColumnarStorage.compressed", "true")
+
+# Specifies the serializer for Cache
+spark.conf.set("spark.sql.cache.serializer", "org.apache.spark.serializer.KryoSerializer")
+
+# the fraction of the JVM heap that is used for Spark's execution and storage memory
+spark.conf.set("spark.memory.fraction", "0.7")
+
+# the fraction of spark.memory.fraction that is allocated to storage (caching) versus execution memory.
+spark.conf.set("spark.memory.storageFraction", "0.6")
 ```
 
 Once we execute the app, we can inspect the DAG visualization where we can see the im-memory table and in-memory DataFrame is being used for computation.
