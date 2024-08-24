@@ -156,3 +156,52 @@ The DAG shows that a broadcast exchange operation happens at Stage 3 where the s
 
 ![Broadcast Join](./../images/broadcast-join.png)
 
+## Spark performance and partition optimizations
+
+Following are few techniques and configurations which we can adapt to optimize the performance of Spark application.
+
+##### Only load the data which is absolutely required
+
+- The costliest operation in Spark engine is shuffling the data. Loading unwanted data would make spark to make it available for shuffle operations (Map and Reduce exchanges). This can be avoided by filtering the unwanted rows and columns from the Dataframe.
+
+##### Reduce the size of DataFrame
+
+- Try to reduce the size of DataFrame through cleansing and aggregation activities before the join operations. The smaller the DataFrame size, the faster the shuffle operation and higher the performance.
+
+##### Ensure Join key cardinality
+
+- The Join key cardinality directly affects the number of parallel tasks which can be executed. Ensure good cardinality of join keys.
+-  Distribution of data across keys should also be normalized. Imaging we have 1000 keys, but 90% of the data is spread across only 10 keys, this would result in skewness in the partitions. Plan and mitigate the data distribution skewness among partitions, by properly planning the join keys. `spark.sql.adaptive.skewJoin.enabled` can be set to true to achieve optimized join for skewed keys.
+
+##### Bucketing Data
+
+- We can use Bucketing to create optimized number of buckets based on the join key. This would improve the performance at the time of join by mitigating the shuffle operation at the time of join.
+
+##### Plan the degree of parallelism
+
+The degree of parallelism is dependent on number of executors, number of shuffle partitions and number of join keys. To achieve maximum parallelism, we should try to achieve following.
+
+> No. of Join keys == No. of Shuffle Partitions == No. of Executors
+
+Imagine we are running on a 100 node cluster (100 executors) and if we configured only to have 10 shuffle partitions, then we are limiting the parallelism to 10 parallel tasks. And in the same situation, if we have only 3 join keys, the parallelism further limited to 3 parallel tasks. Hence we should try to achieve the maximum parallelism by planning the right configuration with below settings.
+
+```
+spark.default.parallelism
+spark.sql.shuffle.partitions
+```
+
+##### Plan the number of executors
+
+- Configure `spark.executor.instances`, `spark.dynamicAllocation.enabled`, `spark.dynamicAllocation.minExecutors`, `spark.dynamicAllocation.maxExecutors` to optimized values.
+
+##### Setup Driver and Executor configuration
+
+- Configure `spark.executor.memory`, `spark.executor.cores`, `spark.executor.memoryOverhead`, `spark.driver.memory`, `spark.driver.cores`, `spark.driver.memoryOverhead` to set to optimized values with decent buffer, so that the garbage collections can be minimized.
+
+##### Leverage Broadcast Join
+
+- For join operations where we have small DataFrame (which can fit into executor memory), then opt for Broadcast join. Consider setting `spark.sql.autoBroadcastJoinThreshold`.
+
+##### Enable Adaptive Query Execution (AQE)
+
+- AQE (`spark.sql.adaptive.enabled`) can automatically optimize your query plan at runtime, reducing the need for manual tuning.

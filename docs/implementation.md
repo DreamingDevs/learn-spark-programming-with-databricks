@@ -32,10 +32,10 @@ Spark framework allows us to configure application with multiple options to opti
 2. `spark.master`
 3. `spark.executor.memory`
 4. `spark.executor.cores`
-5. `spark.yarn.executor.memoryOverhead`
+5. `spark.executor.memoryOverhead`
 6. `spark.driver.memory`
 7. `spark.driver.cores`
-8. `spark.yarn.driver.memoryOverhead`
+8. `spark.driver.memoryOverhead`
 9. `spark.default.parallelism`
 10. `spark.sql.shuffle.partitions`
 11. `spark.sql.autoBroadcastJoinThreshold`
@@ -511,3 +511,4 @@ Once we execute the app, we can inspect the DAG visualization where we can see t
 ![Spark Cache](./../images/cache.png)
 
 ![Spark Cache](./../images/cache-1.png)
+
