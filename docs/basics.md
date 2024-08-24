@@ -210,37 +210,37 @@ spark.sql.shuffle.partitions
 
 In this section, we will estimate the resources required by driver and executor to run a simple Spark application.
 
-> NOTE: The exercise in this section is demonstrated solely to give an idea on how to come up with estimations. These estimations cannot be adopted as-is for production deployments.
+> NOTE: The exercise in this section will give an idea on how to come up with estimations. These estimations cannot be adopted as-is for production deployments for all use cases.
 
 ##### Driver configuration
 
-- **spark.driver.cores**: Usually driver comprises PySpark and JVM processes which are tunneled with py4j channel. General recommendation is to go with 2 cores.
-- **spark.driver.memory**: This memory is the JVM's heap memory where all the computation happens by SparkContext. General commendation is to go with 2GB per core, hence we need 4GB.
-- **spark.driver.memoryOverhead**: This memory is the off heap memory for PySpark process. This is computed by the formula `MAX(spark.driver.memory * spark.driver.memoryOverheadFactor, 384MB)`. Typically we can configure 1GB.
+- **spark.driver.cores**: The driver comprises PySpark and JVM processes which are tunneled with py4j channel. General recommendation is to have 2 cores.
+- **spark.driver.memory**: This memory is the JVM's heap memory where all the computations happens by SparkContext. General commendation is to go with 2GB per core, hence we need 4GB.
+- **spark.driver.memoryOverhead**: This memory is the off heap memory for PySpark process. This is computed by the formula `MAX(spark.driver.memory * spark.driver.memoryOverheadFactor, 384MB)`. Typically, we can configure 1GB.
 
 ##### Executor configuration
 
 - **spark.executor.cores**: General recommendation is to have 5 cores.
 - **spark.executor.memory**: If we go with 2GB per core, we need 10GB.
 - **spark.executor.memoryOverhead**: Based on the formula `MAX(spark.driver.memory * spark.driver.memoryOverheadFactor, 384MB)`, we can allocate 1GB.
-- **spark.memory.fraction**: If we set this setting to 0.8, which allocates the memory to executor process. If we remove 300MB towards the executor process, we will have 9700MB. Out of which 60% is available for executor process i.e., 7760MB.
-- **spark.memory.storageFraction**: The default value of this setting is 0.5, which allocates the memory to cache. If we assign 50% of executor process memory, then the cache would get 3880MB per core.
+- **spark.memory.fraction**: This setting allocates the memory to executor process (default is 0.6). We can configure it to 0.8. If we remove 300MB towards running the executor process itself, we will have 9700MB. Out of which 80% is available for executor process i.e., 7760MB across all cores.
+- **spark.memory.storageFraction**: This setting allocates the memory to cache (default value is 0.5). If we assign 50% of executor process memory, then the cache would get 3880MB for all cores.
 
 > So we have 3880MB towards cache and 3880MB towards executor memory, which means (3880/5) => 776MB per core.
 > 
-> Usually we try to process X MB partition with a process which have 4X MB memory, so that it can accommodate all the transformations and computations. So in above case (776MB/4) => 194MB, which means we can process a partition which is of 194MB per core. 
+> Usually we try to process X MB partition with an executor which have 4X MB memory, so that it can accommodate all the transformations and computations. So in above case (776MB/4) => 194MB, which means we can process a partition which is of 194MB per core. 
 > 
-> The 3880MB cache memory will be made available to the executor in case cache is not utilized. Hence, we can have partitions which are bigger than 194MB (~200MB) as well. This information is crucial to plan the number of shuffle partitions and executors.
+> The 3880MB cache memory will be made available to the executor if cache is not utilized. Hence, we can have partitions which are bigger than 194MB (~200MB) as well. This information is crucial to plan the number of shuffle partitions and executors.
 
 ##### Shuffle and executors
 
-Now that we know the estimated partition size (~194 - 200MB), and we also know our data size (data which needs to be processed), we can estimate the number of shuffle partitions which are required.
+Now that we know the estimated partition size (~194 - 200MB), and we can know our data size (data which needs to be processed), we can estimate the number of shuffle partitions which are required.
 
 - **spark.sql.shuffle.partitions**:
   - Let's assume we have 100GB of data to be processed. With 200MB of partition size, we need 500 shuffle partitions. That is large number of partitions. 
-  - If we do not use memory allocated to cache, we will have additional 200MB which can aide executor memory. In this case, we can increase partition size to 400MB which would need 250 shuffle partitions.
+  - If we do not use memory allocated to cache, we will have additional 200MB (per core) which can aide executor memory. In this case, we can increase partition size to 400MB which would only need 250 shuffle partitions.
 
-> This way we can plan the number of shuffle partitions by optimizing the entire configuration set.
+> This way we can plan the number of shuffle partitions by optimizing different configuration options.
 
 - **spark.executor.instances**: 
   - Let's assume we need 250 shuffle partitions, that needs 250 cores to process them in parallel. With 5 cores in each executor, we need 50 executors, which is the ideal configuration. 
