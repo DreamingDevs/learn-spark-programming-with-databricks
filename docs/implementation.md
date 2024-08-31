@@ -512,3 +512,77 @@ Once we execute the app, we can inspect the DAG visualization where we can see t
 
 ![Spark Cache](./../images/cache-1.png)
 
+## Deploy and test the Spark application
+
+In this section we will see how to deploy Spark application to a Databricks cluster and test it. Hope you already created an Azure account as demonstrated [here](./setup_dev_machine.md#azure-and-databricks-setup).
+
+**Step 1**: Login to Azure account and create a Premium Databricks cluster. We can find the `Launch Workspace` option on the created Databricks service, click on it and navigate to the workspace.
+
+![Databricks Cluster](./../images/databricks-1.png)
+
+![Databricks Workspace](./../images/databricks-2.png)
+
+**Step 2**: Navigate to settings and enable DBFS filesystem explorer at Databricks workspace.
+
+![DBFS Workspace](./../images/databricks-3.png)
+
+**Step 3**: Under `catalog` tab, select `Browse DBFS`. Create `firstapp` folder and upload `movies.json` to DBFS. The path of the file is `dbfs:/FileStore/firstapp/movies.json`.
+
+![Upload movies.json](./../images/databricks-4.png)
+
+**Step 4**: Create compute resource by navigating to `compute` tab. As this cluster is only for testing purpose, we will create a shared cluster with minimum configuration as shown below.
+
+![Create compute](./../images/databricks-7.png)
+
+**Step 5**: The source code can be found at [first-app-v16](./../src/first-app-v16). Package the application by executing below commands, make sure the contents of the zip file have the same hierarchy (when we un-zip, the folder should contain `__init__.py, app.py, spark.conf, lib/__init__.py, lib/config.py, lib/logger.py`).
+
+> NOTE: The code has been simplified because the purpose of this section to demonstrate the execution of app in Databricks environment.
+
+```
+cd learn-spark-programming-with-databricks/src/
+zip -r first-app-v16.zip first-app-v16/
+```
+
+**Step 6**: Under workspace tab, create a folder with name `first-app`. Right click the folder and import the package to the `first-app` folder.
+
+![Upload package](./../images/databricks-5.png)
+
+**Step 7**: Under workspace tab, create a new notebook with name `first-app-notebook` under `first-app` folder.
+
+![New Notebook](./../images/databricks-6.png)
+
+**Step 8**: Execute the below code.
+
+```
+import sys
+import os
+
+# Define the directory containing app.py and lib
+app_directory = '/Workspace/first-app/first-app-v16'
+
+# Add this directory to the system path
+sys.path.insert(0, app_directory)
+
+# Now import the main function from app.py
+from app import main
+
+# Define the paths
+movies_path = 'dbfs:/FileStore/firstapp/movies.json'
+output_path = 'dbfs:/FileStore/firstapp/output'
+config_path = 'first-app-v16/spark.conf'
+
+# Call the main function
+main(movies_path, output_path, config_path)
+```
+
+We can see below output.
+
+![Output](./../images/databricks-8.png)
+
+**Step 9**: Ensure to clean up all the resources.
+
+- Delete first-app folder (right click -> move to trash)
+- Stop the cluster and delete it
+- Delete the DBFS files using `dbutils.fs.rm` command from a notebook (or) manually delete the files
+- Delete the firstapp Databricks workspace from the Azure portal
+- Ensure all resources groups are also deleted, if not, then delete them manually
