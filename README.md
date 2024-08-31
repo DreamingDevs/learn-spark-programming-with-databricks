@@ -45,4 +45,24 @@ With this comprehensive list of tasks, we've successfully covered the core funda
 
 But the journey doesn’t end here! We will soon dive into Spark Streaming, where you’ll learn to process real-time data streams with the same power and efficiency you've mastered with Spark's core functionalities. No breaks, just continuous learning—so stay tuned for the next exciting chapter!
 
+| S.No. | Task                                                                               | Date       | Status                                 | Details |
+|-------|------------------------------------------------------------------------------------|------------|----------------------------------------|---------|
+| 1     | What is Spark Streaming? What problems does it solve compared to batch processing? | 09-20-2024 | ![Pending](./images/icons/pending.png) |         |
+| 2     | What is the streaming execution plan and query flow?                               | 09-20-2024 | ![Pending](./images/icons/pending.png) |         |
+| 3     | What are the important APIs for stream processing?                                 | 09-20-2024 | ![Pending](./images/icons/pending.png) |         |
+| 4     | What are the different sources and sinks in Spark Streaming?                       | 09-20-2024 | ![Pending](./images/icons/pending.png) |         |
+| 5     | Create a streaming application to read data from Kafka and write to a Delta table. | 09-20-2024 | ![Pending](./images/icons/pending.png) |         |
+| 6     | What are idempotency issues and how can they be resolved?                          | 09-20-2024 | ![Pending](./images/icons/pending.png) |         |
+| 7     | What are Delta tables? Provide examples of Delta tables.                           | 09-20-2024 | ![Pending](./images/icons/pending.png) |         |
+| 8     | What are streaming aggregates? How do they differ from incremental aggregates?     | 09-20-2024 | ![Pending](./images/icons/pending.png) |         |
+| 9     | What is a state store provider? How does it help Spark Streaming?                  | 09-20-2024 | ![Pending](./images/icons/pending.png) |         |
+| 10    | What are stateless and stateful transformations?                                   | 09-20-2024 | ![Pending](./images/icons/pending.png) |         |
+| 11    | What are unbounded continuous aggregators and time-bound aggregators?              | 09-20-2024 | ![Pending](./images/icons/pending.png) |         |
+| 12    | What are tumbling window and sliding window aggregates?                            | 09-20-2024 | ![Pending](./images/icons/pending.png) |         |
+| 13    | What is watermarking, and how does it work with output modes?                      | 09-20-2024 | ![Pending](./images/icons/pending.png) |         |
+| 14    | What are stateful and stateless joins? How does watermarking affect joins?         | 09-20-2024 | ![Pending](./images/icons/pending.png) |         |
+| 15    | How do you handle CDC (Change Data Capture) updates in streaming applications?     | 09-20-2024 | ![Pending](./images/icons/pending.png) |         |
+| 16    | What is the optimized configuration for a streaming application?                   | 09-20-2024 | ![Pending](./images/icons/pending.png) |         |
+
+
 > [Optional] If you’re interested in customizing your terminal to match the setup used in this guide, you can install iTerm2 and ZSH with the PowerLevel10k theme. Follow the instructions provided [here](./docs/setup_dev_machine.md#terminal-setup).
