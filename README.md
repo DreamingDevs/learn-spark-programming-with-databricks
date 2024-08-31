@@ -2,6 +2,10 @@
 
 Welcome to the "Learn Spark Programming with Databricks" repository! This is your one-stop destination to master Apache Spark and Databricks through a comprehensive, hands-on learning journey.
 
+This repository is designed to guide you step-by-step through the essential concepts and hands-on practices of Apache Spark and Databricks. Below, you’ll find a detailed roadmap of tasks, each carefully curated to build your expertise from the ground up. Whether you're setting up your development environment or diving deep into Spark's powerful features, this table will help you track your progress and stay organized as you advance through the learning journey.
+
+Each task includes a direct link to the corresponding documentation or code samples, making it easy to navigate through the content. Ready to master Spark? Let's get started!
+
 > NOTE: Credit to ChatGPT for transforming my thoughts into write-ups.
 
 | S.No. | Task                                                          | Date       | Status                                     | Details                                                                          |
@@ -37,3 +41,7 @@ Welcome to the "Learn Spark Programming with Databricks" repository! This is you
 | 29    | Estimation of resources                                       | 08-24-2024 | ![Completed](./images/icons/completed.png) | [Link](./docs/basics.md#estimation-of-resources)                                 |
 | 30    | Deploy and test the Spark application [Databricks env.]       | 08-25-2024 | ![Completed](./images/icons/completed.png) | [Link](./docs/implementation.md#deploy-and-test-the-spark-application)           |
 | 31    | [Optional] Install iTerm2 and ZSH with PowerLevel10k theme    | 07-22-2024 | ![Completed](./images/icons/completed.png) | [Link](./docs/setup_dev_machine.md#terminal-setup)                               |
+
+With this comprehensive list of tasks, we've successfully covered the core fundamentals of Apache Spark. Your journey through Spark’s architecture, transformations, optimizations, and deployments has equipped you with the essential knowledge to build and manage robust Spark applications.
+
+But the journey doesn’t end here! We will soon dive into Spark Streaming, where you’ll learn to process real-time data streams with the same power and efficiency you've mastered with Spark's core functionalities. No breaks, just continuous learning—so stay tuned for the next exciting chapter!
